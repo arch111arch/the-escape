@@ -53,6 +53,33 @@ teleportation_chamber.usables = {
   "gizmo": "use to exit."
 }
 
+potions = Location('''five shelves are filled with jars, bottles and strange,
+instruments and burning candels.\n
+There is bottle with blue liquid on a table.''', 'a dimly lit potions chamber.', 'This is the new description.', 'directions')
+potions.directions = 'You can go: East'
+
+control_room = Location('''this bright control-room is allmost entirely filled
+ with computerscreens, buttons and levers. 
+ In the center is a large controlpanel.\n
+ On a coathanger you see a blue and yellow cloak.''', ' a room filled with computers and machines.', 'This is the new description.', 'directions')
+control_room.directions = 'You can go: East'
+
+control_room.interactible = {
+  "cloak": "A cloak of invisibility!",
+  "model": "Mustang",
+  "year": 1964
+}
+
+current_location = teleportation_chamber
+
+def intro():
+    print('Everything is black.')
+    ('\n')
+    print('You are in the ' + current_location.name + '. You see ' + current_location.description)
+    print('\n')
+    current_location.visited = True
+    print(colored('Available Directions : ' , 'yellow') + current_location.directions)
+    
 
 
 
@@ -64,7 +91,7 @@ print('')
 print('Good to meet you ' + (colored(user_name, 'green')) 
 + ', now let us begin.\n')
 
-
+intro()
 
 
 
