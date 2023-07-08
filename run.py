@@ -70,6 +70,40 @@ control_room.interactible = {
   "year": 1964
 }
 
+hallway = Location('''this hallway continues ends in total darkness.''', ' a dark hallway.', 'This is the new description.', 'directions')
+hallway.directions = 'You can go: East'
+
+exit = Location('''EXIT.''', ' the exit.', 'This is the new description.', 'directions')
+exit.directions = 'You can go: Exit'
+
+
+pool = Location('''in front of a wooden platform, a black icy cold pool stretches across the long chamber and 
+ends in an identical wooden platform on the other side.''', 'a large black pool, icy cold.', 'This is the new description.', 'directions')
+pool.directions = 'You can go: East'
+
+#blocked = Location('you can not go that way.' , 'you can not go that way','This is the new description.')
+
+#teleportation_chamber.north = pool
+teleportation_chamber.west = control_room
+teleportation_chamber.east = potions
+#teleportation_chamber.south = blocked
+
+#pool.north = blocked
+#pool.west = blocked
+#pool.east = blocked
+pool.south = teleportation_chamber
+
+#control_room.north = blocked
+#control_room.west = blocked
+control_room.east = teleportation_chamber
+#control_room.south = blocked
+
+#potions.north = blocked
+potions.west = control_room
+#potions.east = blocked
+#potions.south = blocked
+
+
 current_location = teleportation_chamber
 
 def intro():
@@ -83,6 +117,49 @@ def intro():
 
 
 
+def dragon_isfree():
+    print('Congratilations!\n')
+    print('You climb into the dragons scaly back and hold on tight.\n')
+    print('With a roar the dragon spreads its wings and leaps up into the air.\n')
+    print('With three flaps of its mighty wings, you emerge into the cold air high above the prison.')
+    print('Game Over')
+    exit()
+    
+
+def examine():
+
+    if user_command.startswith('xa'):
+        #if item that user types exist in the list items, it is removed and added to the users inverntorylist.
+        #The description of the location is changed to reflect that the object is no longer there.
+        for item in current_location.interactible.keys():
+            if user_command.endswith(item):
+                value= current_location.interactible.get(item)
+                print(value)
+                print('In the location: ')
+                break
+        else:
+            print('You can not examine that.\n')
+
+def gameloop():
+    current_location = teleportation_chamber
+    user_command = ''
+    inventory_isempty = True
+
+    while user_command != 'quit':
+       
+        print('')
+        x = input(colored('What do you do now? > ', 'green'))
+        user_command = x.lower()
+        loc = current_location
+        print('\n')
+        #makes sure every input is lowercase to avoid errors.
+
+      
+
+    print('QUITTING GAME')
+
+
+
 print('Welcome to the text-adventure ' + logo)
 print('')
 
@@ -92,7 +169,7 @@ print('Good to meet you ' + (colored(user_name, 'green'))
 + ', now let us begin.\n')
 
 intro()
-
+gameloop()
 
 
 
