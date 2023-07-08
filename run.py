@@ -45,22 +45,34 @@ In the center of the room is a pentagram painted on the floor surrounded
 by lit white candles.\n
 In a corner stands a red round table.'''
 
-teleportation_chamber.directions = 'You can go: East'
-teleportation_chamber.interactible = {
-  "key": "A small golden key, carved like a dragon.",
-  "model": "Mustang",
-  "year": 1964
-}
+teleportation_chamber.directions = 'You can go: North, East, South, West'
+
 
 teleportation_chamber.usables = {
-  "poison": "Glass vial with a dangerous looking green liquid.",
   
 }
 
-potions = Location('''five shelves are filled with jars, bottles and strange,
+library = Location('''five shelves are filled with jars, bottles and strange,
 instruments and burning candels.\n
-There is bottle with blue liquid on a table.''', 'a dimly lit potions chamber.', 'This is the new description.', 'directions')
-potions.directions = 'You can go: East'
+On a black table you see a icespell and fetchspell.''', 'a dimly lit potions chamber.', 'This is the new description.', 'directions')
+library.directions = 'You can go: West'
+library.new_description = '''five shelves are filled with jars, bottles and strange,
+instruments and burning candels.\n
+On a black table stands lonely.'''
+library.new_description1 = '''five shelves are filled with jars, bottles and strange,
+instruments and burning candels.\n
+On a black table is fetchspell'''
+
+library.new_description2 = '''five shelves are filled with jars, bottles and strange,
+instruments and burning candels.\n
+On a black table is icespell.'''
+
+library.interactible = {
+  "icespell": "A spell with that turns things very cold.",
+  "fetchspell": "Get things far away from you."
+
+  
+}
 
 control_room = Location('''this bright control-room is allmost entirely filled
  with computerscreens, buttons and levers. 
@@ -70,39 +82,49 @@ control_room.directions = 'You can go: East'
 
 control_room.interactible = {
   "cloak": "A cloak of invisibility!",
-  "model": "Mustang",
-  "year": 1964
+ 
 }
 
 hallway = Location('''this hallway continues ends in total darkness.''', ' a dark hallway.', 'This is the new description.', 'directions')
 hallway.directions = 'You can go: East'
 
+wizards_room = Location('''the old wizard is snoozing in a arge armchair in front of a large fireplace.
+ In his lap you see a key.''', ' the wizards home. Quite cozy.', '''the old wizard is snoozing in a arge armchair 
+in front of a large fireplace. Cozy.''', 'directions')
+wizards_room.directions = 'You can go: North'
+teleportation_chamber.new_description = '''the old wizard is snoozing in a arge armchair 
+in front of a large fireplace. Cozy.'''
 
-pool = Location('''in front of a wooden platform, a black icy cold pool stretches across the long chamber and 
-ends in an identical wooden platform on the other side.''', 'a large black pool, icy cold.', 'This is the new description.', 'directions')
-pool.directions = 'You can go: East'
 
-#blocked = Location('you can not go that way.' , 'you can not go that way','This is the new description.')
+dragon_keep = Location(''' large cavern. High above you can see an opening
+ beaming with daylight. A large red dragon is lying in the center of the cavern.
+  It is held down with a massive locked chain.
+  It looks at you with sad eyes and speaks.\n
+  Please help me! If you unlock my chains you can leave this place in my back as I fly away!
+  ''', ' a large sad, red dragon.', 'This is the new description.', 'directions')
+dragon_keep.directions = 'You can go: East'
 
-#teleportation_chamber.north = pool
+
+pool = Location(''' a wooden platform, a black icy cold pool stretches across the long chamber and 
+ends in an identical wooden platform on the other side.
+There is no way to cross it.''', 'a large black pool, icy cold.', 'This is the new description.', 'directions')
+pool.directions = 'You can go: South'
+
+teleportation_chamber.south = wizards_room
+teleportation_chamber.north = pool
 teleportation_chamber.west = control_room
-teleportation_chamber.east = potions
-#teleportation_chamber.south = blocked
+teleportation_chamber.east = library
 
-#pool.north = blocked
-#pool.west = blocked
-#pool.east = blocked
+wizards_room.north = teleportation_chamber
+#pool.west = dragon_keep
 pool.south = teleportation_chamber
 
-#control_room.north = blocked
-#control_room.west = blocked
-control_room.east = teleportation_chamber
-#control_room.south = blocked
+dragon_keep.east = pool
 
-#potions.north = blocked
-potions.west = control_room
-#potions.east = blocked
-#potions.south = blocked
+control_room.east = teleportation_chamber
+
+library.west = teleportation_chamber
+
 
 
 current_location = teleportation_chamber
@@ -145,6 +167,8 @@ def gameloop():
     current_location = teleportation_chamber
     user_command = ''
     inventory_isempty = True
+    ice_taken = False
+    fetch_taken = False
 
     while user_command != 'quit':
        
@@ -243,7 +267,7 @@ def gameloop():
                 pass
 
 
-        elif user_command.startswith('use') and current_location == teleportation_chamber:
+        elif user_command.startswith('use') and current_location == dragon_keep:
             for item in inventory_dict.keys():
                 if user_command.endswith('key'):
                     print('You use the key to unlock the chains around the dragons neck.')
@@ -253,38 +277,89 @@ def gameloop():
             else:
                 print('That did not work.')
 
-        elif user_command.startswith('use') and current_location == teleportation_chamber:
-            for item in teleportation_chamber.interactible():
-                if user_command.endswith('poison'):
-                    print('You use the key to unlock the chains around the dragons neck.')
-                    dragon_isfree()
+        elif user_command.startswith('use') and current_location == pool:
+            for item in inventory_dict.keys():
+                if user_command.endswith('icespell'):
+                    print('You use the ice spell to freeze the water solid!')
+                    current_location.west = dragon_keep
+                    current_location.description = 'You can go: South, West'
                     break
             
             else:
                 print('That did not work.')
-        
-        elif user_command.startswith('get'):
-            inventory_isempty = False
-            for item in current_location.interactible.keys():
-                if user_command.endswith(item):
-                    print(inventory_dict)
-                    print(current_location.interactible)
 
-                    value= current_location.interactible.get(item)
-                    inventory_dict[item] = value
-                    #inventory_dict.update({item: value})
-                    del current_location.interactible[item]
-                    print(inventory_dict)
-                    print(current_location.interactible)
-                    print('You take the ' + item + '\n')
+
+        elif user_command.startswith('use') and current_location == wizards_room:
+            for item in inventory_dict.keys():
+                if user_command.endswith('fetchspell'):
+                    print('You use the fetchspell to get the key!')
+                    inventory_isempty = False
+                    inventory_dict["key"] = "A golden dragon key."
                     current_location.description = current_location.new_description
                     break
+            
+                else:
+                    print('That did not work.')
+
+
+        
+        elif user_command.startswith('get') and current_location != wizards_room:
+            inventory_isempty = False
+            for item in current_location.interactible.keys():
+                if user_command.endswith('icespell') and fetch_taken == False:
+                    if user_command.endswith(item):
+                        print(inventory_dict)
+                        print(current_location.interactible)
+
+                        value= current_location.interactible.get(item)
+                        inventory_dict[item] = value
+                        #inventory_dict.update({item: value})
+                        del current_location.interactible[item]
+                        print(inventory_dict)
+                        print(current_location.interactible)
+                        print('You take the ' + item + '\n')
+                        current_location.description = current_location.new_description1
+                        ice_taken = True
+                    else:
+                        current_location.description = current_location.new_description
+                    break
+                elif user_command.endswith('fetchspell') and ice_taken == False:
+                    if user_command.endswith(item):
+                        print(inventory_dict)
+                        print(current_location.interactible)
+
+                        value= current_location.interactible.get(item)
+                        inventory_dict[item] = value
+                        #inventory_dict.update({item: value})
+                        del current_location.interactible[item]
+                        print(inventory_dict)
+                        print(current_location.interactible)
+                        print('You take the ' + item + '\n')
+                        current_location.description = current_location.new_description2
+                        fetch_taken = True
+                    else:
+                        current_location.description = current_location.new_description
+                    break
+
+                elif user_command.endswith(item):
+                        print(inventory_dict)
+                        print(current_location.interactible)
+
+                        value= current_location.interactible.get(item)
+                        inventory_dict[item] = value
+                        #inventory_dict.update({item: value})
+                        del current_location.interactible[item]
+                        print(inventory_dict)
+                        print(current_location.interactible)
+                        print('You take the ' + item + '\n')
+                        current_location.description = current_location.new_description
+                        break
                     
             else:
                 print('You can not get that.\n')
 
-        elif user_command.startswith('xa'):
-            examine()           
+       # elif user_command.startswith('xa'):
+       #    examine()           
 
         elif user_command.startswith('examine'):
             #if item that user types exist in the list items, it is removed and added to the users inverntorylist.
