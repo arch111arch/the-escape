@@ -130,7 +130,13 @@ library.west = teleportation_chamber
 current_location = teleportation_chamber
 
 def intro():
-    print('Everything is black.')
+    print('''Everything is black. As your head clears you are greeted by an old wizard in reb robes. 
+You realize you stand in a pentagram. You have been teleported here!\n
+"Greetings. I am in need of a new assistent. My old one is ... no longer available."\n
+"Get yourself settled and do not even think of escaping. There is no way out of here."\n
+He walks away and leaves you in a state of shock and enger. \n
+No way you are staying here! Time to find a way out.
+    ''')
     ('\n')
     print('You are in the ' + current_location.name + '. You see ' + current_location.description)
     print('\n')
@@ -429,6 +435,17 @@ user_name = input('What is your name, adventurer? > ')
 print('') 
 print('Good to meet you ' + (colored(user_name, 'green')) 
 + ', now let us begin.\n')
+print(
+'''
+look for your surroudnings.\n
+inventory for you items.\n
+get to pick something up.\n
+use to use something.\n
+examine to read a despcription of something.
+
+'''
+
+)
 
 intro()
 gameloop()
