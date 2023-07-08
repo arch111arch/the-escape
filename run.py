@@ -4,8 +4,12 @@
 from termcolor import colored, cprint
 import time
 
+global_string = 'access'
 inventory_dict = {}
+
 delay = 1
+#quit = False
+#win = False
 logo = (colored('THE ESCAPE', 'yellow', attrs=['bold']))
 user_command = ''
 
@@ -50,7 +54,7 @@ teleportation_chamber.interactible = {
 
 teleportation_chamber.usables = {
   "poison": "Glass vial with a dangerous looking green liquid.",
-  "gizmo": "use to exit."
+  
 }
 
 potions = Location('''five shelves are filled with jars, bottles and strange,
@@ -72,9 +76,6 @@ control_room.interactible = {
 
 hallway = Location('''this hallway continues ends in total darkness.''', ' a dark hallway.', 'This is the new description.', 'directions')
 hallway.directions = 'You can go: East'
-
-exit = Location('''EXIT.''', ' the exit.', 'This is the new description.', 'directions')
-exit.directions = 'You can go: Exit'
 
 
 pool = Location('''in front of a wooden platform, a black icy cold pool stretches across the long chamber and 
@@ -115,7 +116,7 @@ def intro():
     print(colored('Available Directions : ' , 'yellow') + current_location.directions)
     
 
-
+    print(global_string)
 
 def dragon_isfree():
     print('Congratilations!\n')
@@ -154,7 +155,193 @@ def gameloop():
         print('\n')
         #makes sure every input is lowercase to avoid errors.
 
-      
+        # The if statement checks if the user can go in all directions. If not
+        # then a message is printed and the gameloop starts over.
+        if user_command == 'north':
+            print(colored('Available Directions : ' , 'yellow') + current_location.directions)
+            try:
+
+                if user_command is not None:
+                    if current_location.directions is not None:
+                        
+                        current_location = current_location.north
+                        if current_location.visited == False:
+                            
+                            print('You see ' + current_location.description + '\n')
+                            current_location.visited = True
+                        else:
+                            print(current_location.directions)
+                            print('You see ' + current_location.short_description + '\n')
+                
+            except AttributeError:
+                print(colored('Wrong direction. Choose again.', 'red'))
+                current_location = loc
+                pass
+
+        elif user_command == 'south':
+            print(colored('Available Directions : ' , 'yellow') + current_location.directions)
+            try:
+
+                if user_command is not None:
+                    if current_location.directions is not None:
+                        
+                        current_location = current_location.south
+                        if current_location.visited == False:
+                            
+                            print('You see ' + current_location.description + '\n')
+                            current_location.visited = True
+                        else:
+                            print(current_location.directions)
+                            print('You see ' + current_location.short_description + '\n')
+                
+            except AttributeError:
+                print(colored('Wrong direction. Choose again.', 'red'))
+                current_location = loc
+                pass
+
+
+        elif user_command == 'east':
+            print(colored('Available Directions : ' , 'yellow') + current_location.directions)
+            try:
+
+                if user_command is not None:
+                    if current_location.directions is not None:
+                        
+                        current_location = current_location.east
+                        if current_location.visited == False:
+                            
+                            print('You see ' + current_location.description + '\n')
+                            current_location.visited = True
+                        else:
+                            print(current_location.directions)
+                            print('You see ' + current_location.short_description + '\n')
+                
+            except AttributeError:
+                print(colored('Wrong direction. Choose again.', 'red'))
+                current_location = loc
+                pass
+
+        elif user_command == 'west':
+            print(colored('Available Directions : ' , 'yellow') + current_location.directions)
+            try:
+
+                if user_command is not None:
+                    if current_location.directions is not None:
+                        
+                        current_location = current_location.west
+                        if current_location.visited == False:
+                            
+                            print('You see ' + current_location.description + '\n')
+                            current_location.visited = True
+                        else:
+                            print(current_location.directions)
+                            print('You see ' + current_location.short_description + '\n')
+                
+            except AttributeError:
+                print(colored('Wrong direction. Choose again.', 'red'))
+                current_location = loc
+                pass
+
+
+        elif user_command.startswith('use') and current_location == teleportation_chamber:
+            for item in inventory_dict.keys():
+                if user_command.endswith('key'):
+                    print('You use the key to unlock the chains around the dragons neck.')
+                    dragon_isfree()
+                    break
+            
+            else:
+                print('That did not work.')
+
+        elif user_command.startswith('use') and current_location == teleportation_chamber:
+            for item in teleportation_chamber.interactible():
+                if user_command.endswith('poison'):
+                    print('You use the key to unlock the chains around the dragons neck.')
+                    dragon_isfree()
+                    break
+            
+            else:
+                print('That did not work.')
+        
+        elif user_command.startswith('get'):
+            inventory_isempty = False
+            for item in current_location.interactible.keys():
+                if user_command.endswith(item):
+                    print(inventory_dict)
+                    print(current_location.interactible)
+
+                    value= current_location.interactible.get(item)
+                    inventory_dict[item] = value
+                    #inventory_dict.update({item: value})
+                    del current_location.interactible[item]
+                    print(inventory_dict)
+                    print(current_location.interactible)
+                    print('You take the ' + item + '\n')
+                    current_location.description = current_location.new_description
+                    break
+                    
+            else:
+                print('You can not get that.\n')
+
+        elif user_command.startswith('xa'):
+            examine()           
+
+        elif user_command.startswith('examine'):
+            #if item that user types exist in the list items, it is removed and added to the users inverntorylist.
+            #The description of the location is changed to reflect that the object is no longer there.
+            for item in current_location.interactible.keys():
+                if user_command.endswith(item):
+                    value= current_location.interactible.get(item)
+                    print(value)
+                    print('In the location: ')
+                    break
+            else:
+                print('You can not examine that.\n')
+
+        elif user_command.startswith('hold'):
+            for item in inventory_dict.keys():
+                if user_command.endswith(item):
+                    value= inventory_dict.get(item)
+                    print(value)
+                    print('In your inventory: ')
+                    break
+            else:
+                 print('Not in your inventory')
+                 
+        
+        elif user_command.startswith('inventory'):
+            
+            if inventory_isempty == False:
+            
+                for x, y in inventory_dict.items():
+                    print('You have: ' + x, 'Descpription: ' + y)
+
+            else:
+                print('Inventry is empty')
+
+        elif user_command.startswith('look'):
+            
+            try:
+
+                if user_command is not None:
+                    if current_location.directions is not None:
+                        
+                        print('You see' + current_location.description)
+                        print('\n')
+                        print(colored('Available Directions : ' , 'yellow') + current_location.directions + '\n')
+                        
+                
+            except AttributeError:
+                print(colored('Wrong direction. Choose again.', 'red'))
+                pass
+            
+
+        elif user_command == 'quit':
+            print('Good Bye')
+            current_location = ''
+            #sets to avoid getting the AttributeError = 'NoneType'
+        else:
+            print('That did not seem to work. Type something else.')
 
     print('QUITTING GAME')
 
