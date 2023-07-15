@@ -315,30 +315,35 @@ def gameloop():
 
         elif user_command.startswith('use') and current_location == dragon_keep:
             for item in inventory_dict.keys():
-                if user_command.endswith('key'):
-                    print('You use the key to unlock the chains around the dragons neck.')
-                    dragon_isfree()
-                    break
+                if item == 'key':
+                    if user_command.endswith('key'):
+                        print('You use the key to unlock the chains around the dragons neck.')
+                        dragon_isfree()
+                        break
             
             else:
                 print('That did not work.')
 
         elif user_command.startswith('use') and current_location == pool:
-            for item in inventory_dict.keys():
-                if user_command.endswith('icespell') and pool_isfrozen == False:
-                    print('You use the ice spell to freeze the water solid!')
-                    current_location.west = dragon_keep
-                    current_location.directions = 'You can go: South, West'
-                    current_location.description ='''
-                    a wooden platform, shiny frozen pool stretches across the long chamber and 
-                    ends in an identical wooden platform on the other side.\n
-                    The air is very cold.'''
-                    pool_isfrozen = True
-                    break
-            
+            if pool_isfrozen == False:
+                
+                for item in inventory_dict.keys():
+                    if user_command.endswith('icespell'):
+                        print('You use the ice spell to freeze the water solid!')
+                        current_location.west = dragon_keep
+                        current_location.directions = 'You can go: South, West'
+                        current_location.description ='''
+a wooden platform, shiny frozen pool stretches across the long chamber and 
+ends in an identical wooden platform on the other side.\n
+The air is very cold.'''
+                        pool_isfrozen = True
+                        break
+                    
+                
+                else:
+                    print('That did not work.')
             else:
-                print('That did not work.')
-
+                print('The pool is allready frozen.')
 
         elif user_command.startswith('use') and current_location == wizards_room:
             for item in inventory_dict.keys():
@@ -494,17 +499,6 @@ user_name = input('What is your name, adventurer? > ')
 print('') 
 print('Good to meet you ' + (colored(user_name, 'green')) 
 + ', now let us begin.\n')
-print(
-'''
-look for your surroudnings.\n
-inventory for you items.\n
-get to pick something up.\n
-use to use something.\n
-examine to read a despcription of something.
-
-'''
-
-)
 
 intro()
 gameloop()
