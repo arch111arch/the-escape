@@ -10,11 +10,11 @@ inventory_dict = {}
 delay = 1
 #quit = False
 #win = False
-logo = (colored('THE ESCAPE', 'yellow', attrs=['bold']))
+logo = (colored('THE ESCAPE FROM THE WIZARDS LAIR', 'yellow', attrs=['bold']))
 user_command = ''
 
 class Location:
-    def __init__(self, description, short_description, new_description, directions):
+    def __init__(self, description, short_description, new_description, description1, description2, directions):
         self.description = description
         self.short_description = short_description
         self.new_description = new_description
@@ -27,23 +27,30 @@ class Location:
         self.name = None
         self.interactible = {}
         self.directions = directions
+        self.description1 = description1
+        self.description2 = description2
 
 
-teleportation_chamber = Location('''A vaulted room illuminted by strange glowing 
-symbols in the stonewalls\n.
-In the center of the room is a pentagram painted on the floor surrounded
-by lit white candles.\n
+teleportation_chamber = Location('''
+A vaulted room illuminted by strange glowing symbols
+ in the stonewalls\n.
+In the center of the room is a pentagram painted on
+ the floor surrounded by lit white candles.\n
 In a black shelf you see a glass vial with a label of a skull.
 In a corner stands a red round table.\n
 A gold KEY is on the table.''', '''You are in the 
-teleportation-chamber.''', '', 'directions')
+teleportation-chamber.''', '', 'description1', 'description2', 'directions')
 teleportation_chamber.name = 'Teleportation Chamber'
 teleportation_chamber.short_description = 'You are in the teleportation-chamber.'
-teleportation_chamber.new_description = '''a vaulted room illuminted by strange glowing 
-symbols in the stonewalls\n.
-In the center of the room is a pentagram painted on the floor surrounded
-by lit white candles.\n
+teleportation_chamber.new_description = '''
+a vaulted room illuminted by strange glowing symbols
+ in the stonewalls\n.
+In the center of the room is a pentagram painted
+ on the floor surrounded by lit white candles.\n
 In a corner stands a red round table.'''
+
+teleportation_chamber.description1 = ''
+teleportation_chamber.description2 = ''
 
 teleportation_chamber.directions = 'You can go: North, East, South, West'
 
@@ -53,19 +60,16 @@ teleportation_chamber.usables = {
 }
 
 library = Location('''five shelves are filled with jars, bottles and strange,
-instruments and burning candels.\n
-On a black table you see a icespell and fetchspell.''', 'a dimly lit potions chamber.', 'This is the new description.', 'directions')
+instruments and burning candels.\n''', 'a dimly lit potions chamber.', 'This is the new description.', 'description1', 'description2', 'directions')
 library.directions = 'You can go: West'
 library.new_description = '''five shelves are filled with jars, bottles and strange,
 instruments and burning candels.\n
 On a black table stands lonely.'''
-library.new_description1 = '''five shelves are filled with jars, bottles and strange,
-instruments and burning candels.\n
-On a black table is fetchspell'''
 
-library.new_description2 = '''five shelves are filled with jars, bottles and strange,
-instruments and burning candels.\n
-On a black table is icespell.'''
+library.description1 = '''
+A instained parchment with the words "Fetchspell" lies on the table.\n'''
+
+library.description2 = '''A parchment with the words "icespell" lies on the table.'''
 
 library.interactible = {
   "icespell": "A spell with that turns things very cold.",
@@ -77,21 +81,30 @@ library.interactible = {
 control_room = Location('''this bright control-room is allmost entirely filled
  with computerscreens, buttons and levers. 
  In the center is a large controlpanel.\n
- On a coathanger you see a blue and yellow cloak.''', ' a room filled with computers and machines.', 'This is the new description.', 'directions')
+ On a coathanger you see a blue and yellow cloak.''', ' a room filled with computers and machines.', 'This is the new description.', 'description1', 'description2', 'directions')
 control_room.directions = 'You can go: East'
+
+control_room.description1 = ''
+control_room.description2 = ''
 
 control_room.interactible = {
   "cloak": "A cloak of invisibility!",
  
 }
 
-hallway = Location('''this hallway continues ends in total darkness.''', ' a dark hallway.', 'This is the new description.', 'directions')
+hallway = Location('''this hallway continues ends in total darkness.''', ' a dark hallway.', 'This is the new description.', 'description1', 'description2', 'directions')
 hallway.directions = 'You can go: East'
+hallway.description1 = ''
+hallway.description2 = ''
 
 wizards_room = Location('''the old wizard is snoozing in a arge armchair in front of a large fireplace.
  In his lap you see a key.''', ' the wizards home. Quite cozy.', '''the old wizard is snoozing in a arge armchair 
-in front of a large fireplace. Cozy.''', 'directions')
+in front of a large fireplace. Cozy.''', 'description1', 'description2', 'directions')
 wizards_room.directions = 'You can go: North'
+
+wizards_room.description1 = ''
+wizards_room.description2 = ''
+
 teleportation_chamber.new_description = '''the old wizard is snoozing in a arge armchair 
 in front of a large fireplace. Cozy.'''
 
@@ -101,13 +114,19 @@ dragon_keep = Location(''' large cavern. High above you can see an opening
   It is held down with a massive locked chain.
   It looks at you with sad eyes and speaks.\n
   Please help me! If you unlock my chains you can leave this place in my back as I fly away!
-  ''', ' a large sad, red dragon.', 'This is the new description.', 'directions')
+  ''', ' a large sad, red dragon.', 'This is the new description.', 'description1', 'description2', 'directions')
+
+dragon_keep.description1 = ''
+dragon_keep.description2 = ''
+
 dragon_keep.directions = 'You can go: East'
 
 
 pool = Location(''' a wooden platform, a black icy cold pool stretches across the long chamber and 
 ends in an identical wooden platform on the other side.
-There is no way to cross it.''', 'a large black pool, icy cold.', 'This is the new description.', 'directions')
+There is no way to cross it.''', 'a large black pool, icy cold.', 'This is the new description.', 'description1', 'description2', 'directions')
+pool.description1 = 'A cat purrs.'
+pool.description2 = ''
 pool.directions = 'You can go: South'
 
 teleportation_chamber.south = wizards_room
@@ -129,16 +148,32 @@ library.west = teleportation_chamber
 
 current_location = teleportation_chamber
 
+def help():
+    print('The game is played with these commands:')
+    print('help : Brings up this list.')
+    print('inventory : Shows your current items')
+    print('look : Shows your surroundings.')
+    print('examine + item: A description of an item or thing.')
+    print('hold + item : Description of an item in your inventory.')
+    print('use + item : Use item in the inventory, or in a location.')
+    print('take + item : Take something and add to the inventory.')
+    print('Some words are specific to special locations and will')
+    print(' not work anywhere else.')
+
 def intro():
-    print('''Everything is black. As your head clears you are greeted by an old wizard in reb robes. 
+    print(colored('''
+Everything is black.\n
+As your head clears you are greeted by an old wizard in red robes. 
 You realize you stand in a pentagram. You have been teleported here!\n
-"Greetings. I am in need of a new assistent. My old one is ... no longer available."\n
-"Get yourself settled and do not even think of escaping. There is no way out of here."\n
+"Greetings. I am in need of a new assistent. My old one is ... no longer
+ available."\n
+"Get yourself settled and do not even think of escaping.
+There is no way out of here."\n
 He walks away and leaves you in a state of shock and enger. \n
 No way you are staying here! Time to find a way out.
-    ''')
-    ('\n')
-    print('You are in the ' + current_location.name + '. You see ' + current_location.description)
+    ''', 'cyan'))
+    input('press ENTER to continue.\n')
+    print('You are in the ' + current_location.name + '. You see ' + current_location.description + current_location.description1 + current_location.description2)
     print('\n')
     current_location.visited = True
     print(colored('Available Directions : ' , 'yellow') + current_location.directions)
@@ -175,6 +210,7 @@ def gameloop():
     inventory_isempty = True
     ice_taken = False
     fetch_taken = False
+    pool_isfrozen = False
 
     while user_command != 'quit':
        
@@ -188,7 +224,6 @@ def gameloop():
         # The if statement checks if the user can go in all directions. If not
         # then a message is printed and the gameloop starts over.
         if user_command == 'north':
-            print(colored('Available Directions : ' , 'yellow') + current_location.directions)
             try:
 
                 if user_command is not None:
@@ -197,11 +232,13 @@ def gameloop():
                         current_location = current_location.north
                         if current_location.visited == False:
                             
-                            print('You see ' + current_location.description + '\n')
+                            print('You see ' + current_location.description + current_location.description1 + current_location.description2 + '\n')
+                            print(colored('Available Directions : ' , 'yellow') + current_location.directions)
                             current_location.visited = True
                         else:
                             print(current_location.directions)
                             print('You see ' + current_location.short_description + '\n')
+                            print(colored('Available Directions : ' , 'yellow') + current_location.directions)
                 
             except AttributeError:
                 print(colored('Wrong direction. Choose again.', 'red'))
@@ -209,7 +246,6 @@ def gameloop():
                 pass
 
         elif user_command == 'south':
-            print(colored('Available Directions : ' , 'yellow') + current_location.directions)
             try:
 
                 if user_command is not None:
@@ -218,11 +254,13 @@ def gameloop():
                         current_location = current_location.south
                         if current_location.visited == False:
                             
-                            print('You see ' + current_location.description + '\n')
+                            print('You see ' + current_location.description + current_location.description1 + current_location.description2 + '\n')
+                            print(colored('Available Directions : ' , 'yellow') + current_location.directions)
                             current_location.visited = True
                         else:
                             print(current_location.directions)
                             print('You see ' + current_location.short_description + '\n')
+                            print(colored('Available Directions : ' , 'yellow') + current_location.directions)
                 
             except AttributeError:
                 print(colored('Wrong direction. Choose again.', 'red'))
@@ -231,7 +269,6 @@ def gameloop():
 
 
         elif user_command == 'east':
-            print(colored('Available Directions : ' , 'yellow') + current_location.directions)
             try:
 
                 if user_command is not None:
@@ -240,11 +277,13 @@ def gameloop():
                         current_location = current_location.east
                         if current_location.visited == False:
                             
-                            print('You see ' + current_location.description + '\n')
+                            print('You see ' + current_location.description + current_location.description1 + current_location.description2 + '\n')
+                            print(colored('Available Directions : ' , 'yellow') + current_location.directions)
                             current_location.visited = True
                         else:
                             print(current_location.directions)
                             print('You see ' + current_location.short_description + '\n')
+                            print(colored('Available Directions : ' , 'yellow') + current_location.directions)
                 
             except AttributeError:
                 print(colored('Wrong direction. Choose again.', 'red'))
@@ -252,7 +291,6 @@ def gameloop():
                 pass
 
         elif user_command == 'west':
-            print(colored('Available Directions : ' , 'yellow') + current_location.directions)
             try:
 
                 if user_command is not None:
@@ -261,11 +299,13 @@ def gameloop():
                         current_location = current_location.west
                         if current_location.visited == False:
                             
-                            print('You see ' + current_location.description + '\n')
+                            print('You see ' + current_location.description + current_location.description1 + current_location.description2 + '\n')
+                            print(colored('Available Directions : ' , 'yellow') + current_location.directions)
                             current_location.visited = True
                         else:
                             print(current_location.directions)
                             print('You see ' + current_location.short_description + '\n')
+                            print(colored('Available Directions : ' , 'yellow') + current_location.directions)
                 
             except AttributeError:
                 print(colored('Wrong direction. Choose again.', 'red'))
@@ -285,10 +325,15 @@ def gameloop():
 
         elif user_command.startswith('use') and current_location == pool:
             for item in inventory_dict.keys():
-                if user_command.endswith('icespell'):
+                if user_command.endswith('icespell') and pool_isfrozen == False:
                     print('You use the ice spell to freeze the water solid!')
                     current_location.west = dragon_keep
-                    current_location.description = 'You can go: South, West'
+                    current_location.directions = 'You can go: South, West'
+                    current_location.description ='''
+                    a wooden platform, shiny frozen pool stretches across the long chamber and 
+                    ends in an identical wooden platform on the other side.\n
+                    The air is very cold.'''
+                    pool_isfrozen = True
                     break
             
             else:
@@ -299,82 +344,96 @@ def gameloop():
             for item in inventory_dict.keys():
                 if user_command.endswith('fetchspell'):
                     print('You use the fetchspell to get the key!')
+                    print('Thanks you your clever use of the spell, the wizard snoozes on.')
                     inventory_isempty = False
-                    inventory_dict["key"] = "A golden dragon key."
+                    inventory_dict["key"] = "A golden key skaped like a dragon."
                     current_location.description = current_location.new_description
                     break
             
                 else:
-                    print('That did not work.')
-
-
+                    print('Hmm. Maby use something else.')
         
-        elif user_command.startswith('get') and current_location != wizards_room:
+        elif user_command.startswith('take') and current_location == wizards_room:
+            print('You can not risk it. He will wake up.')
+        
+        elif user_command.startswith('take'):
             inventory_isempty = False
             for item in current_location.interactible.keys():
-                if user_command.endswith('icespell') and fetch_taken == False:
-                    if user_command.endswith(item):
-                        print(inventory_dict)
-                        print(current_location.interactible)
+                if user_command.endswith('icespell') and ice_taken == False:
+                    #if user_command.endswith == item:
+                       # print(inventory_dict)
+                       # print(current_location.interactible)
 
                         value= current_location.interactible.get(item)
                         inventory_dict[item] = value
                         #inventory_dict.update({item: value})
                         del current_location.interactible[item]
-                        print(inventory_dict)
-                        print(current_location.interactible)
+                       # print(inventory_dict)
+                       # print(current_location.interactible)
                         print('You take the ' + item + '\n')
-                        current_location.description = current_location.new_description1
+                        current_location.description2= ''
                         ice_taken = True
-                    else:
-                        current_location.description = current_location.new_description
-                    break
-                elif user_command.endswith('fetchspell') and ice_taken == False:
-                    if user_command.endswith(item):
-                        print(inventory_dict)
-                        print(current_location.interactible)
+                        break
+
+                elif user_command.endswith('fetchspell') and fetch_taken == False:
+                    #if user_command.endswith(item):
+                       # print(inventory_dict)
+                       # print(current_location.interactible)
+
 
                         value= current_location.interactible.get(item)
                         inventory_dict[item] = value
                         #inventory_dict.update({item: value})
                         del current_location.interactible[item]
-                        print(inventory_dict)
-                        print(current_location.interactible)
+                       # print(inventory_dict)
+                       # print(current_location.interactible)
                         print('You take the ' + item + '\n')
-                        current_location.description = current_location.new_description2
+                        current_location.description1 = ''
                         fetch_taken = True
-                    else:
-                        current_location.description = current_location.new_description
-                    break
+                        break
 
                 elif user_command.endswith(item):
-                        print(inventory_dict)
-                        print(current_location.interactible)
+                       # print(inventory_dict)
+                       # print(current_location.interactible)
 
                         value= current_location.interactible.get(item)
                         inventory_dict[item] = value
                         #inventory_dict.update({item: value})
                         del current_location.interactible[item]
-                        print(inventory_dict)
-                        print(current_location.interactible)
+                       # print(inventory_dict)
+                       # print(current_location.interactible)
                         print('You take the ' + item + '\n')
                         current_location.description = current_location.new_description
                         break
                     
             else:
-                print('You can not get that.\n')
+                print('You can not take that.\n')
 
        # elif user_command.startswith('xa'):
        #    examine()           
-
-        elif user_command.startswith('examine'):
+        
+        elif user_command.startswith('examine') and current_location == wizards_room:
+            if user_command.endswith('key'):
+                print('It is a small gold key in the shape of a dragon.')
+            
             #if item that user types exist in the list items, it is removed and added to the users inverntorylist.
             #The description of the location is changed to reflect that the object is no longer there.
+            else:
+                for item in current_location.interactible.keys():
+                    if user_command.endswith(item):
+                        value= current_location.interactible.get(item)
+                        print(value)
+                        print('Is in the location.')
+                        break
+                else:
+                    print('You can not examine that.\n')
+
+        elif user_command.startswith('examine'):
             for item in current_location.interactible.keys():
                 if user_command.endswith(item):
                     value= current_location.interactible.get(item)
                     print(value)
-                    print('In the location: ')
+                    print('Is in the location.')
                     break
             else:
                 print('You can not examine that.\n')
@@ -384,7 +443,7 @@ def gameloop():
                 if user_command.endswith(item):
                     value= inventory_dict.get(item)
                     print(value)
-                    print('In your inventory: ')
+                    print('Is in your inventory.')
                     break
             else:
                  print('Not in your inventory')
@@ -407,7 +466,7 @@ def gameloop():
                 if user_command is not None:
                     if current_location.directions is not None:
                         
-                        print('You see' + current_location.description)
+                        print('You see' + current_location.description + ' ' + current_location.description1 + ' ' + current_location.description2)
                         print('\n')
                         print(colored('Available Directions : ' , 'yellow') + current_location.directions + '\n')
                         
