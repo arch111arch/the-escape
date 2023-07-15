@@ -339,7 +339,8 @@ The air is very cold.'''
                         current_location.description1 = ''
                         fetch_taken = True
                         break
-
+#if item that user types exist in the list items, it is removed and added to the users inverntorylist.
+            #The description of the location is changed to reflect that the object is no longer there.
                 elif user_command.endswith(item):
                         value= current_location.interactible.get(item)
                         inventory_dict[item] = value
@@ -354,8 +355,10 @@ The air is very cold.'''
         elif user_command.startswith('examine') and current_location == wizards_room:
             if user_command.endswith('key'):
                 print('It is a small gold key in the shape of a dragon.')
-            #if item that user types exist in the list items, it is removed and added to the users inverntorylist.
-            #The description of the location is changed to reflect that the object is no longer there.
+            elif user_command.endswith('wizard'):
+                print('The Wizard looks very old. The long hair and beard is white.')
+                print('He is dressed in a red robe decorated with magic runes.')
+                print("Strange. He doesn't look dangerous, but he is.")
             else:
                 for item in current_location.interactible.keys():
                     if user_command.endswith(item):
