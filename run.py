@@ -146,6 +146,14 @@ guard_room.directions = 'You can go: West'
 guard_room.description1 = ''
 guard_room.description2 = ''
 
+observatory= Location('''a round room with a domed ceiling.\n
+On the soft blue carpet stands a comfortable-looking armchair. A large chrystal chandelier
+ is hanging from the ceiling.
+The main focus of the room however is the large gold telescope pointing up at the dome.''', ' a round room with a telescope in the center. An observatory.', 'This is the new description.', 'description1', 'description2', 'directions')
+observatory.directions = 'You can go: North'
+observatory.description1 = 'Something is hanging up in the chandelier.'
+observatory.description2 = ''
+
 teleportation_chamber.south = wizards_room
 teleportation_chamber.north = hallway2
 teleportation_chamber.west = hallway3
@@ -155,6 +163,7 @@ potions.west = hallway1
 
 hallway1.west = teleportation_chamber
 hallway1.east = potions
+hallway1.south = observatory
 
 hallway2.north = pool
 hallway2.south = teleportation_chamber
@@ -162,6 +171,8 @@ hallway2.west = control_room
 hallway2.east = guard_room
 
 hallway3.east = teleportation_chamber
+
+observatory.north = hallway1
 
 guard_room.west = hallway2
 
