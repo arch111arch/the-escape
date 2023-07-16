@@ -52,12 +52,12 @@ library.directions = 'You can go: West'
 library.new_description = '''five shelves are filled with jars, bottles and strange,
 instruments and burning candels.'''
 library.description1 = '''
-You see a instained parchment with the words "Fetchspell" sticking out of a book.\n'''
+You see a inkstained parchment with the words "Fetchspell" sticking out of a book.\n'''
 library.description2 = ''
 
 library.interactible = {
   #"icespell": "A spell with that turns things very cold.",
-  "fetchspell": "Get things far away from you." 
+  "fetchspell": "A spell to get things far away." 
 }
 
 potions = Location('''five shelves are filled with jars, bottles and strange,
@@ -153,6 +153,10 @@ The main focus of the room however is the large gold telescope pointing up at th
 observatory.directions = 'You can go: North'
 observatory.description1 = 'Something is hanging up in the chandelier.'
 observatory.description2 = ''
+
+observatory.usables = {
+"cloak": "A cloak decorated with silver closed eyes.",
+}
 
 teleportation_chamber.south = wizards_room
 teleportation_chamber.north = hallway2
@@ -260,6 +264,9 @@ def gameloop():
     ice_taken = False
     fetch_taken = False
     pool_isfrozen = False
+    square_ispressed = False
+    triangle_ispressed = False
+    library_isopen = False
 
     while user_command != 'quit':
        
@@ -357,6 +364,7 @@ def gameloop():
                         break
             else:
                 print('That did not work.')
+                
 
         elif user_command.startswith('use') and current_location == pool:
             if pool_isfrozen == False:
@@ -375,6 +383,7 @@ The air is very cold.'''
                     print('That did not work.')
             else:
                 print('The pool is allready frozen.')
+
         elif user_command.startswith('use') and current_location == wizards_room:
             for item in inventory_dict.keys():
                 if user_command.endswith('fetchspell'):
@@ -390,6 +399,95 @@ The air is very cold.'''
         
         elif user_command.startswith('take') and current_location == wizards_room:
             print('You can not risk it. He will wake up.')
+
+#use item from usable that can not be taken
+
+        elif user_command.startswith('use') and current_location == control_room:
+            if library_isopen == False:    
+                for item in current_location.usables.keys():
+                    if item == 'square':
+                        if user_command.endswith('square'):
+                        # item = 'square'
+                            value= current_location.usables.get(item)
+                            if square_ispressed == False:
+                                print('You press the ' + value + 'key' + '\n')
+                                print('Enter next symbol.')
+                                #current_location.description2= ''
+                                square_ispressed = True
+                                break
+                            else:
+                                print('You pressed square allready. Resetting.')
+                                square_ispressed = False
+                                break
+
+                        elif user_command.startswith('use') and current_location == control_room:
+                            for item in current_location.usables.keys():
+                                if item == 'triangle':
+                                    if user_command.endswith('triangle'):
+                                        # item = 'square'
+                                        value= current_location.usables.get(item)
+                                        if square_ispressed == True:
+                                            if triangle_ispressed == False:
+                                                print('You press the ' + value + 'key' + '\n')
+                                                print('Enter next symbol.')
+                                                #print('The buttons turn green. You did something!')
+                                                #current_location.description2= ''
+                                                triangle_ispressed = True
+                                                break
+                                            else:
+                                                print('You pressed triangle allready. Resetting.')
+                                                triangle_ispressed = False
+                                                square_ispressed = False
+                                                break
+                                        else:
+                                            print('Wrong sequence. Resetting')
+                                            triangle_ispressed = False
+                                            square_ispressed = False
+                                            break
+                                    
+                    
+                                    elif user_command.startswith('use') and current_location == control_room:
+                                        for item in current_location.usables.keys():
+                                            if item == 'circle':
+                                                if user_command.endswith('circle'):
+                                                    # item = 'square'
+                                                    value= current_location.usables.get(item)
+                                                    if triangle_ispressed == True:
+                                                        if circle_ispressed == False:
+                                                            print('You press the ' + value + 'key' + '\n')
+                                                            print('Enter next symbol.')
+                                                            print('The buttons turn green. You opened the gate!')
+                                                            #current_location.description2= ''
+                                                            circle_ispressed = True
+                                                            library_isopen = True
+                                                            break
+                                                        else:
+                                                            print('You pressed triangle allready. Resetting.')
+                                                            triangle_ispressed = False
+                                                            square_ispressed = False
+                                                            break
+                                                    else:
+                                                        print('Wrong sequence. Resetting')
+                                                        triangle_ispressed = False
+                                                        square_ispressed = False
+                                                        break
+                                                else:
+                                                    #print('Wrong sequence! Resetting.')
+                                                    triangle_ispressed = False
+                                                    square_ispressed = False
+                                                    circle_ispressed = False
+                                                    break
+                    
+                    else:
+                        print('Try something else.')
+                        break
+
+            else:
+                print('You allready opened the gate.')
+                
+            
+
+
         
         elif user_command.startswith('take'):
             inventory_isempty = False
