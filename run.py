@@ -50,32 +50,50 @@ library = Location('''five shelves are filled with jars, bottles and strange,
 instruments and burning candels.\n''', 'a dimly lit potions chamber.', 'This is the new description.', 'description1', 'description2', 'directions')
 library.directions = 'You can go: West'
 library.new_description = '''five shelves are filled with jars, bottles and strange,
-instruments and burning candels.\n
-On a black table stands lonely.'''
+instruments and burning candels.'''
 library.description1 = '''
-A instained parchment with the words "Fetchspell" lies on the table.\n'''
-library.description2 = '''A parchment with the words "icespell" lies on the table.'''
+You see a instained parchment with the words "Fetchspell" sticking out of a book.\n'''
+library.description2 = ''
 
 library.interactible = {
-  "icespell": "A spell with that turns things very cold.",
+  #"icespell": "A spell with that turns things very cold.",
   "fetchspell": "Get things far away from you." 
 }
 
-control_room = Location('''this bright control-room is allmost entirely filled
- with computerscreens, buttons and levers. 
- In the center is a large controlpanel.\n
- On a coathanger you see a blue and yellow cloak.''', ' a room filled with computers and machines.', 'This is the new description.', 'description1', 'description2', 'directions')
+potions = Location('''five shelves are filled with jars, bottles and strange,
+instruments and burning candels.\n''', 'a dimly lit potions chamber.', 'This is the new description.', 'description1', 'description2', 'directions')
+potions.directions = 'You can go: West'
+potions.new_description = '''five shelves are filled with jars, bottles and strange,
+instruments and burning candels.\n
+On a black table stands lonely.'''
+potions.description1 = '''
+A instained parchment with the words "Fetchspell" lies on the table.\n'''
+potions.description2 = '''A parchment with the words "icespell" lies on the table.'''
+
+potions.interactible = {
+  "icespell": "A spell with that turns things very cold.",
+  #"fetchspell": "Get things far away from you." 
+}
+
+control_room = Location('''this dark control-room pulsates with neon-lights of red, green and blue.
+It is allmost entirely filled with screens, buttons and levers. 
+In the center is a large controlpanel.\n
+Under a copper-plaque that reads "Library" you see three buttons.
+A square-button, a circle-button and a triangle-button.''', ' a control-room filled with machines and neon light.', 'This is the new description.', 'description1', 'description2', 'directions')
 control_room.directions = 'You can go: East'
 control_room.description1 = ''
 control_room.description2 = ''
-control_room.interactible = {
-  "cloak": "A cloak of invisibility!",
+control_room.usables = {
+"square": "A button shaped like a SQUARE.",
+"circle": "A button shaped like a CIRCLE.",
+"triangle": "A button shaped like a TRIANGLE."
 }
 
 hallway = Location('''this hallway continues ends in total darkness.''', ' a dark hallway.', 'This is the new description.', 'description1', 'description2', 'directions')
 hallway.directions = 'You can go: East'
 hallway.description1 = ''
 hallway.description2 = ''
+
 wizards_room = Location('''the old wizard is snoozing in a arge armchair in front of a large fireplace.
  In his lap you see a key.''', ' the wizards home. Quite cozy.', '''the old wizard is snoozing in a arge armchair 
 in front of a large fireplace. Cozy.''', 'description1', 'description2', 'directions')
@@ -102,18 +120,61 @@ pool.description1 = 'A cat purrs.'
 pool.description2 = ''
 pool.directions = 'You can go: South'
 
+hallway1 = Location('''a hallway with a flor of blue marble. A glowing yellow orb hovers in the ceiling.''', ' a hallway with a blue marble floor.', 'This is the new description.', 'description1', 'description2', 'directions')
+hallway1.directions = 'You can go: East, West'
+hallway1.description1 = ''
+hallway1.description2 = ''
+
+hallway2 = Location('''a hallway entirely painted red. four wallmounted torches illuminates the room.
+A cool breeze from the north makes the torches flames dance.''', ' a hallway painted red. Torches flicker in a breeze', 'This is the new description.', 'description1', 'description2', 'directions')
+hallway2.directions = 'You can go: East, West, South, North'
+hallway2.description1 = ''
+hallway2.description2 = ''
+
+hallway3 = Location('''a black and white hallway with checkered floor is illusmitaed by four white glowing 
+orbs, slowly pulsating. You stop and wonder if there are small pixies in there.''', ' a hallway with checkered floor lit by four white orbs.', 'This is the new description.', 'description1', 'description2', 'directions')
+hallway3.directions = 'You can go: East'
+hallway3.description1 = ''
+hallway3.description2 = ''
+
+guard_room = Location('''a room filled with beds, chests, weapond and armor on racks, 
+and a general mess of clothes and items over the floor and chairs.\n
+Three ugly trolls look up as you enter.\n
+They do not look friendly, or like they are having a good day.
+''', ' a messy guardroom with three angry trolls in it.', 'This is the new description.', 'description1', 'description2', 'directions')
+guard_room.directions = 'You can go: West'
+guard_room.description1 = ''
+guard_room.description2 = ''
+
 teleportation_chamber.south = wizards_room
-teleportation_chamber.north = pool
-teleportation_chamber.west = control_room
-teleportation_chamber.east = library
+teleportation_chamber.north = hallway2
+teleportation_chamber.west = hallway3
+teleportation_chamber.east = hallway1
+
+potions.west = hallway1
+
+hallway1.west = teleportation_chamber
+hallway1.east = potions
+
+hallway2.north = pool
+hallway2.south = teleportation_chamber
+hallway2.west = control_room
+hallway2.east = guard_room
+
+hallway3.east = teleportation_chamber
+
+guard_room.west = hallway2
 
 wizards_room.north = teleportation_chamber
+
+#pool.north = garden
+#pool.east = library
 #pool.west = dragon_keep
-pool.south = teleportation_chamber
+pool.south = hallway2
 
 dragon_keep.east = pool
 
-control_room.east = teleportation_chamber
+control_room.east = hallway2
 
 library.west = teleportation_chamber
 
@@ -322,24 +383,24 @@ The air is very cold.'''
         elif user_command.startswith('take'):
             inventory_isempty = False
             for item in current_location.interactible.keys():
-                if user_command.endswith('icespell'):
+                if user_command.endswith('icespell') and ice_taken == False:
                         item = 'icespell'
                         value= current_location.interactible.get(item)
                         inventory_dict[item] = value
                         del current_location.interactible[item]
                         print('You take the ' + item + '\n')
                         current_location.description2= ''
-                        #ice_taken = True
+                        ice_taken = True
                         break
 
-                elif user_command.endswith('fetchspell'):
+                elif user_command.endswith('fetchspell') and fetch_taken == False:
                         item = 'fetchspell'
                         value= current_location.interactible.get(item)
                         inventory_dict[item] = value
                         del current_location.interactible[item]
                         print('You take the ' + item + '\n')
                         current_location.description1 = ''
-                        #fetch_taken = True
+                        fetch_taken = True
                         break
 #if item that user types exist in the list items, it is removed and added to the users inverntorylist.
             #The description of the location is changed to reflect that the object is no longer there.
