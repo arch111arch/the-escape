@@ -322,22 +322,24 @@ The air is very cold.'''
         elif user_command.startswith('take'):
             inventory_isempty = False
             for item in current_location.interactible.keys():
-                if user_command.endswith('icespell') and ice_taken == False:
+                if user_command.endswith('icespell'):
+                        item = 'icespell'
                         value= current_location.interactible.get(item)
                         inventory_dict[item] = value
                         del current_location.interactible[item]
                         print('You take the ' + item + '\n')
                         current_location.description2= ''
-                        ice_taken = True
+                        #ice_taken = True
                         break
 
-                elif user_command.endswith('fetchspell') and fetch_taken == False:
+                elif user_command.endswith('fetchspell'):
+                        item = 'fetchspell'
                         value= current_location.interactible.get(item)
                         inventory_dict[item] = value
                         del current_location.interactible[item]
                         print('You take the ' + item + '\n')
                         current_location.description1 = ''
-                        fetch_taken = True
+                        #fetch_taken = True
                         break
 #if item that user types exist in the list items, it is removed and added to the users inverntorylist.
             #The description of the location is changed to reflect that the object is no longer there.
