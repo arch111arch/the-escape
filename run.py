@@ -29,7 +29,7 @@ In the center of the room is a pentagram painted on
  the floor surrounded by lit white candles.\n
 In a black shelf you see a glass vial with a label of a skull.
 In a corner stands a red round table.\n
-A gold KEY is on the table.''', '''You are in the 
+''', '''You are in the 
 teleportation-chamber.''', '', 'description1', 'description2', 'directions')
 teleportation_chamber.name = 'Teleportation Chamber'
 teleportation_chamber.short_description = 'You are in the teleportation-chamber.'
@@ -42,7 +42,6 @@ In a corner stands a red round table.'''
 teleportation_chamber.description1 = ''
 teleportation_chamber.description2 = ''
 teleportation_chamber.directions = 'You can go: North, East, South, West'
-
 teleportation_chamber.usables = {  
 }
 
@@ -54,20 +53,18 @@ instruments and burning candels.'''
 library.description1 = '''
 You see a inkstained parchment with the words "Fetchspell" sticking out of a book.\n'''
 library.description2 = ''
+library.interactible = {
+    "fetchspell": "A spell to get things far away." 
+}
 
 library_gate = Location(''' a large black iron gate blocks the entrance to the library.\n
 You can tell by the large sign above the gate that says:\n
 "LIBRARY". But why is it closed?\n
 There is no keyhole, so it must be opened somewhere else.\n''', 'a dimly lit potions chamber.', 'This is the new description.', 'description1', 'description2', 'directions')
-library.directions = 'You can go: West'
-library.new_description = ' a large iron gate. It is open.'
-library.description1 = ''
-library.description2 = ''
-
-library.interactible = {
-  #"icespell": "A spell with that turns things very cold.",
-  "fetchspell": "A spell to get things far away." 
-}
+library_gate.directions = 'You can go: West'
+library_gate.new_description = ' a large iron gate. It is open.'
+library_gate.description1 = ''
+library_gate.description2 = ''
 
 garden = Location(''' a lush garden spreads out like a jungle. Trees, bushes and 
 greenhouses frow everything from bananas to potatoes.
@@ -90,13 +87,11 @@ potions.directions = 'You can go: West'
 potions.new_description = '''five shelves are filled with jars, bottles and strange,
 instruments and burning candels.\n
 On a black table stands lonely.'''
-potions.description1 = '''
-A instained parchment with the words "Fetchspell" lies on the table.\n'''
+potions.description1 = ''
 potions.description2 = '''A parchment with the words "icespell" lies on the table.'''
 
 potions.interactible = {
   "icespell": "A spell with that turns things very cold.",
-  #"fetchspell": "Get things far away from you." 
 }
 
 control_room = Location('''this dark control-room pulsates with neon-lights of red, green and blue.
@@ -218,9 +213,10 @@ dragon_keep.east = pool
 control_room.east = hallway2
 
 #library_gate.east = library
-library_gate-west = pool
+library_gatewest = pool
 
 library.west = pool
+library_gate.west = pool
 
 current_location = teleportation_chamber
 
@@ -404,7 +400,7 @@ def gameloop():
                         print('You use the ice spell to freeze the water solid!')
                         current_location.west = dragon_keep
                         current_location.east = library_gate
-                        current_location.morth = garden
+                        current_location.north = garden
                         current_location.directions = 'You can go: South, West, North, East'
                         current_location.description ='''
 a wooden platform, shiny frozen pool stretches across the long chamber and 
@@ -533,24 +529,24 @@ The air is very cold.'''
         elif user_command.startswith('take'):
             inventory_isempty = False
             for item in current_location.interactible.keys():
-                if user_command.endswith('icespell') and ice_taken == False:
+                if user_command.endswith('icespell') and current_location == potions:
                         item = 'icespell'
                         value= current_location.interactible.get(item)
                         inventory_dict[item] = value
                         del current_location.interactible[item]
                         print('You take the ' + item + '\n')
                         current_location.description2= ''
-                        ice_taken = True
+                        
                         break
 
-                elif user_command.endswith('fetchspell') and fetch_taken == False:
+                elif user_command.endswith('fetchspell') and current_location == library:
                         item = 'fetchspell'
                         value= current_location.interactible.get(item)
                         inventory_dict[item] = value
                         del current_location.interactible[item]
                         print('You take the ' + item + '\n')
                         current_location.description1 = ''
-                        fetch_taken = True
+                        
                         break
 #if item that user types exist in the list items, it is removed and added to the users inverntorylist.
             #The description of the location is changed to reflect that the object is no longer there.
