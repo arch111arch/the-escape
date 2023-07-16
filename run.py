@@ -55,9 +55,33 @@ library.description1 = '''
 You see a inkstained parchment with the words "Fetchspell" sticking out of a book.\n'''
 library.description2 = ''
 
+library_gate = Location(''' a large black iron gate blocks the entrance to the library.\n
+You can tell by the large sign above the gate that says:\n
+"LIBRARY". But why is it closed?\n
+There is no keyhole, so it must be opened somewhere else.\n''', 'a dimly lit potions chamber.', 'This is the new description.', 'description1', 'description2', 'directions')
+library.directions = 'You can go: West'
+library.new_description = ' a large iron gate. It is open.'
+library.description1 = ''
+library.description2 = ''
+
 library.interactible = {
   #"icespell": "A spell with that turns things very cold.",
   "fetchspell": "A spell to get things far away." 
+}
+
+garden = Location(''' a lush garden spreads out like a jungle. Trees, bushes and 
+greenhouses frow everything from bananas to potatoes.
+Racks and barrels are filled with gardeningtools.
+On a sturdy wooden table are hundreds of seeds and a bowl full of beans.\n''', 'a lush garden.', 'This is the new description.', 'description1', 'description2', 'directions')
+garden.directions = 'You can go: South'
+garden.new_description = ''
+garden.description1 = '''
+A glass bottle labelled "Plantfood" stands on the table..\n'''
+garden.description2 = ''
+
+garden.interactible = {
+  "plantfood": "A bottle of super plantfood.",
+  "bean": "A green magic bean!" 
 }
 
 potions = Location('''five shelves are filled with jars, bottles and strange,
@@ -121,7 +145,7 @@ pool.description2 = ''
 pool.directions = 'You can go: South'
 
 hallway1 = Location('''a hallway with a flor of blue marble. A glowing yellow orb hovers in the ceiling.''', ' a hallway with a blue marble floor.', 'This is the new description.', 'description1', 'description2', 'directions')
-hallway1.directions = 'You can go: East, West'
+hallway1.directions = 'You can go: East, West, South'
 hallway1.description1 = ''
 hallway1.description2 = ''
 
@@ -149,13 +173,15 @@ guard_room.description2 = ''
 observatory= Location('''a round room with a domed ceiling.\n
 On the soft blue carpet stands a comfortable-looking armchair. A large chrystal chandelier
  is hanging from the ceiling.
+Directly below the chandelier is a yellow flowerpot.
 The main focus of the room however is the large gold telescope pointing up at the dome.''', ' a round room with a telescope in the center. An observatory.', 'This is the new description.', 'description1', 'description2', 'directions')
 observatory.directions = 'You can go: North'
-observatory.description1 = 'Something is hanging up in the chandelier.'
+observatory.description1 = 'Something is hanging up in the chandelier. A cloak!'
 observatory.description2 = ''
 
 observatory.usables = {
 "cloak": "A cloak decorated with silver closed eyes.",
+"telescope" : "A beautiful large telescope."
 }
 
 teleportation_chamber.south = wizards_room
@@ -183,7 +209,7 @@ guard_room.west = hallway2
 wizards_room.north = teleportation_chamber
 
 #pool.north = garden
-#pool.east = library
+#pool.east = library_gate
 #pool.west = dragon_keep
 pool.south = hallway2
 
@@ -191,7 +217,10 @@ dragon_keep.east = pool
 
 control_room.east = hallway2
 
-library.west = teleportation_chamber
+#library_gate.east = library
+library_gate-west = pool
+
+library.west = pool
 
 current_location = teleportation_chamber
 
@@ -374,7 +403,9 @@ def gameloop():
                     if user_command.endswith('icespell'):
                         print('You use the ice spell to freeze the water solid!')
                         current_location.west = dragon_keep
-                        current_location.directions = 'You can go: South, West'
+                        current_location.east = library_gate
+                        current_location.morth = garden
+                        current_location.directions = 'You can go: South, West, North, East'
                         current_location.description ='''
 a wooden platform, shiny frozen pool stretches across the long chamber and 
 ends in an identical wooden platform on the other side.\n
