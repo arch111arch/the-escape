@@ -268,7 +268,7 @@ def gameloop():
     triangle_ispressed = False
     circle_ispressed = False
     library_isopen = False
-    invisible = True
+    invisible = False
 
     while user_command != 'quit':
        
@@ -405,73 +405,97 @@ The air is very cold.'''
 #use item from usable that can not be taken
 
         elif user_command.startswith('use') and current_location == control_room:
-            #if invisible == True:
-            if user_command.endswith('square'):    
-                for item in current_location.usables.keys():
-                    if item == 'square':
-                        #if user_command.endswith('square'):
-                        # item = 'square'
-                        value= current_location.usables.get(item)
-                        square_ispressed = True
-                        #if square_ispressed == False:
-                        print('You press the ' + value + 'key' + '\n')
-                        x = input(colored('The square turns green. Next button please. > ', 'green'))
-                        user_command = x.lower()
-                        #input('Enter next symbol.')
-                        #current_location.description2= ''
-                        
-                        if user_command.startswith('use') and current_location == control_room:
-                            #if invisible == True:
-                            if user_command.endswith('triangle'):    
-                                for item in current_location.usables.keys():
-                                    if item == 'triangle':
-                                        #if user_command.endswith('square'):
-                                        # item = 'square'
-                                        value= current_location.usables.get(item)
-                                        triangle_ispressed = True
-                                        #if square_ispressed == False:
-                                        print('You press the ' + value + 'key' + '\n')
-                                        x = input(colored('The triangle turns green. Next button please. > ', 'green'))
-                                        user_command = x.lower()
-                                        #input('Enter next symbol.')
-                                        #current_location.description2= ''
-                        
-                                        if user_command.startswith('use') and current_location == control_room:
-                                            #if invisible == True:
-                                            if user_command.endswith('circle'):    
-                                                for item in current_location.usables.keys():
-                                                    if item == 'circle':
-                                                        #if user_command.endswith('square'):
-                                                        # item = 'square'
-                                                        value= current_location.usables.get(item)
-                                                        circle_ispressed = True
-                                                        #if square_ispressed == False:
-                                                        print('You press the ' + value + 'key' + '\n')
-                                                        print('The square, triangle and circle flash green.')
-                                                        print('A symbol of a gate appears just above the buttons. What did you just do?')
-                                                        #current_location.description2= ''
-                                            else:
-                                                print('The buttons go red. That was not the right sequence.')
-                                                circle_ispressed = False
-                                                square_ispressed = False
-                                                triangle_ispressed = False
-                                                break
-                
-                            else:
-                                print('The buttons go red. That was not the right sequence.')
-                                circle_ispressed = False
-                                square_ispressed = False
-                                triangle_ispressed = False
-                                break
-
-            elif user_command.endswith('triangle'):
-                print('The buttons go red. That was not the right sequence.') 
-            elif user_command.endswith('circle'):
-                print('The buttons go red. That was not the right sequence.') 
-            else:
-                print('Try something else.')
-                
             
+            if invisible == True:
+                if user_command.endswith('square'):    
+                    for item in current_location.usables.keys():
+                        if item == 'square':
+                            #if user_command.endswith('square'):
+                            # item = 'square'
+                            value= current_location.usables.get(item)
+                            square_ispressed = True
+                            #if square_ispressed == False:
+                            print('You press the ' + value + 'key' + '\n')
+                            x = input(colored('The square turns green. Next button please. > ', 'green'))
+                            user_command = x.lower()
+                            #input('Enter next symbol.')
+                            #current_location.description2= ''
+                            
+                            if user_command.startswith('use') and current_location == control_room:
+                                #if invisible == True:
+                                if user_command.endswith('triangle'):    
+                                    for item in current_location.usables.keys():
+                                        if item == 'triangle':
+                                            #if user_command.endswith('square'):
+                                            # item = 'square'
+                                            value= current_location.usables.get(item)
+                                            triangle_ispressed = True
+                                            #if square_ispressed == False:
+                                            print('You press the ' + value + 'key' + '\n')
+                                            x = input(colored('The triangle turns green. Next button please. > ', 'green'))
+                                            user_command = x.lower()
+                                            #input('Enter next symbol.')
+                                            #current_location.description2= ''
+                            
+                                            if user_command.startswith('use') and current_location == control_room:
+                                                #if invisible == True:
+                                                if user_command.endswith('circle'):    
+                                                    for item in current_location.usables.keys():
+                                                        if item == 'circle':
+                                                            #if user_command.endswith('square'):
+                                                            # item = 'square'
+                                                            value= current_location.usables.get(item)
+                                                            circle_ispressed = True
+                                                            #if square_ispressed == False:
+                                                            print('You press the ' + value + 'key' + '\n')
+                                                            print('The square, triangle and circle flash green.')
+                                                            print('A symbol of a gate appears just above the buttons. What did you just do?')
+                                                            #current_location.description2= ''
+                                                else:
+                                                    print('The buttons go red. That was not the right sequence.')
+                                                    circle_ispressed = False
+                                                    square_ispressed = False
+                                                    triangle_ispressed = False
+                                                    break
+                    
+                                else:
+                                    print('The buttons go red. That was not the right sequence.')
+                                    circle_ispressed = False
+                                    square_ispressed = False
+                                    triangle_ispressed = False
+                                    break
+
+                elif user_command.endswith('triangle'):
+                    print('The buttons go red. That was not the right sequence.') 
+                elif user_command.endswith('circle'):
+                    print('The buttons go red. That was not the right sequence.') 
+                else:
+                    print('Try something else.')
+            elif user_command.endswith('cloak'):
+                for item in inventory_dict.keys():
+                    if user_command.endswith('cloak'):
+                        print('You wear the cloak and become invisible!')
+                        invisible = True
+                        break
+                else:
+                    print('That did not work.')
+
+            
+            elif user_command.endswith('square'):    
+                print('The troll sees you and pushes you back.')
+                print('GET AWAY FROM THEM CONTROLS, YA WIMP.')
+                print('As long as he can see you, you can not get close.')
+            elif user_command.endswith('triangle'):    
+                print('The troll sees you and pushes you back.')
+                print('GET AWAY FROM THEM CONTROLS, YA WIMP.')
+                print('As long as he can see you, you can not get close.')
+            elif user_command.endswith('circle'):    
+                    print('The troll sees you and pushes you back.')
+                    print('GET AWAY FROM THEM CONTROLS, YA WIMP.')
+                    print('As long as he can see you, you can not get close.')
+
+            else:
+                ('That does not seem to work.')
 
 
         
