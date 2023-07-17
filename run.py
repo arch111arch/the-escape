@@ -427,7 +427,12 @@ The air is very cold.'''
                     print('Hmm. Maby use something else.')
         
         elif user_command.startswith('take') and current_location == wizards_room:
-            print('You can not risk it. He will wake up.')
+            if user_command.endswith('key'):
+                print('You can not risk it. He will wake up.')
+            elif user_command.endswith('wizard'):
+                print('He is way to heavy. And why would you want him?')
+            else:
+                print('You can not take that.')
 
 #use item from usable that can not be taken
 
