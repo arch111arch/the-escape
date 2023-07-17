@@ -65,7 +65,7 @@ library.inter = True
 library_gate = Location(''' a large black iron gate blocks the entrance to the library.\n
 You can tell by the large sign above the gate that says:\n
 "LIBRARY". But why is it closed?\n
-There is no keyhole, so it must be opened somewhere else.\n''', 'a dimly lit potions chamber.', 'This is the new description.', 'description1', 'description2', 'directions')
+There is no keyhole, so it must be opened somewhere else.\n''', 'a gate to the Library.', 'This is the new description.', 'description1', 'description2', 'directions')
 library_gate.directions = 'You can go: West'
 library_gate.new_description = ' a large iron gate. It is open.'
 library_gate.description1 = ''
@@ -187,7 +187,7 @@ On the soft blue carpet stands a comfortable-looking armchair. A large chrystal 
  is hanging from the ceiling.
 The main focus of the room however is the large gold telescope pointing up at the dome.''', ' a round room with a telescope in the center. An observatory.', 'This is the new description.', 'description1', 'description2', 'directions')
 observatory.directions = 'You can go: North'
-observatory.description1 = 'Something is hanging up in the chandelier. A cloak!'
+observatory.description1 = '\nSomething is hanging up in the chandelier. A cloak!\n'+'Is that ... an invisibility cloak? They are super rare.\n'
 observatory.description2 = 'Directly below the chandelier is a yellow flowerpot.'
 
 observatory.usables = {
@@ -428,6 +428,7 @@ a wooden platform, shiny frozen pool stretches across the long chamber and
 ends in an identical wooden platform on the other side.\n
 The air is very cold.'''
                         current_location.description1 = 'You can now enter the cave to the West,\n'+' or walk across the ice to a doorway in the North,\n'+ ' or enter a doorway to the East.'
+                        current_location.short_description = 'a solidly frozen pool. Hey, you can skate here.'
                         pool_isfrozen = True
                         break
                 else:
@@ -445,8 +446,8 @@ The air is very cold.'''
                     current_location.description = current_location.new_description
                     break
             
-                else:
-                    print('Hmm. Maby use something else.')
+            else:
+                print('Hmm. Maby use something else.')
 
         elif user_command.startswith('use') and current_location == observatory:
             if bean_isplanted == False:
@@ -497,7 +498,9 @@ The air is very cold.'''
             else:
                 print('That was not right.')
 
-       
+        elif user_command == 'use beanstalk' and current_location == observatory:
+            if climbed_beanstalk == True:
+                print('No way you are climbing that thing again.')
 
         elif user_command.startswith('use') and current_location == observatory:
             if plantfood_isused == True:
@@ -513,8 +516,6 @@ The air is very cold.'''
             
             elif user_command.endswith('beans') and plantfood_isused == True:
                 print('Maby you can use something else than beans?')
-            elif user_command.endswith('beanstalk') and climbed_beanstalk == True:
-                print('No way you are climbing that thing again.')
             else:
                 print('That did not work.')
         
@@ -577,6 +578,7 @@ The air is very cold.'''
                                                             library_gate.description = 'a large open black iron leads into the library.\n' + 'You can tell by the large sign above the gate that says:\n' + '"LIBRARY".'
                                                             library_gate.east = library
                                                             library_gate.directions = 'You can go West and East.'
+                                                            library_gate.short_description = 'An open iron gate leading to the library.'
                                                             invisible = False
                                                             print('You hurry away from the controlpanel and remove the cloak.')
                                                             print('As you turn visible again, you see the troll did not even notice.')
@@ -627,7 +629,11 @@ The air is very cold.'''
             else:
                 ('That does not seem to work.')
 
-
+        elif user_command == 'take cloak' and current_location == observatory:
+            if climbed_beanstalk == False:
+                rint('The cloak is way too high. I need something to reach it.')
+            else:
+                print('You allready have the cloak. Look, it is ')
         
         elif user_command.startswith('take'):
             inventory_isempty = False
@@ -671,6 +677,7 @@ The air is very cold.'''
                         current_location.description2= ''
                         
                         break
+                        
 #if item that user types exist in the list items, it is removed and added to the users inverntorylist.
             #The description of the location is changed to reflect that the object is no longer there.
                 elif user_command.endswith(item):
