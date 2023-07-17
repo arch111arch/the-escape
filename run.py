@@ -185,11 +185,10 @@ guard_room.usab = True
 observatory= Location('''a round room with a domed ceiling.\n
 On the soft blue carpet stands a comfortable-looking armchair. A large chrystal chandelier
  is hanging from the ceiling.
-Directly below the chandelier is a yellow flowerpot.
 The main focus of the room however is the large gold telescope pointing up at the dome.''', ' a round room with a telescope in the center. An observatory.', 'This is the new description.', 'description1', 'description2', 'directions')
 observatory.directions = 'You can go: North'
 observatory.description1 = 'Something is hanging up in the chandelier. A cloak!'
-observatory.description2 = ''
+observatory.description2 = 'Directly below the chandelier is a yellow flowerpot.'
 
 observatory.usables = {
 "cloak": "A cloak decorated with silver closed eyes.",
@@ -449,6 +448,19 @@ The air is very cold.'''
             
                 else:
                     print('Hmm. Maby use something else.')
+
+        elif user_command.startswith('use') and current_location == observatory:
+            for item in inventory_dict.keys():
+                if user_command.endswith('beans') and bean_isplanted == False:
+                    print('You plant a handfull of beans in the flowerpot.')
+                    print('Now you just needs somehting to make it grow.')
+                    current_location.usables.update({"flowerpot": 'You have planted magic beans in here.'})
+                    bean_isplanted = True
+                    current_location.description2 = 'Directly below the chandelier is a yellow flowerpot.'+'\nThere are beans planted in there.'
+                    break
+            
+            else:
+                print('You allready planted some beans.')
         
         elif user_command.startswith('take') and current_location == wizards_room:
             if user_command.endswith('key'):
