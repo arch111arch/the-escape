@@ -21,6 +21,8 @@ class Location:
         self.directions = directions
         self.description1 = description1
         self.description2 = description2
+        self.inter = False
+        self.usab = False
 
 teleportation_chamber = Location('''
 A vaulted room illuminted by strange glowing symbols
@@ -45,6 +47,7 @@ teleportation_chamber.directions = 'You can go: North, East, South, West'
 teleportation_chamber.usables = {  
 }
 
+
 library = Location('''five shelves are filled with jars, bottles and strange,
 instruments and burning candels.\n''', 'a dimly lit potions chamber.', 'This is the new description.', 'description1', 'description2', 'directions')
 library.directions = 'You can go: West'
@@ -56,6 +59,8 @@ library.description2 = ''
 library.interactible = {
     "fetchspell": "A spell to get things far away." 
 }
+
+library.inter = True
 
 library_gate = Location(''' a large black iron gate blocks the entrance to the library.\n
 You can tell by the large sign above the gate that says:\n
@@ -80,6 +85,8 @@ garden.interactible = {
   "beans": "A jar of green magic beans!" 
 }
 
+garden.inter = True
+
 potions = Location('''five shelves are filled with jars, bottles and strange,
 instruments and burning candels.\n''', 'a dimly lit potions chamber.', 'This is the new description.', 'description1', 'description2', 'directions')
 potions.directions = 'You can go: West'
@@ -92,6 +99,8 @@ potions.description2 = '''A parchment with the words "icespell" lies on the tabl
 potions.interactible = {
   "icespell": "A spell with that turns things very cold.",
 }
+
+potions.inter = True
 
 control_room = Location('''this dark control-room pulsates with neon-lights of red, green and blue.
 It is allmost entirely filled with screens, buttons and levers. 
@@ -106,6 +115,8 @@ control_room.usables = {
 "circle": "A button shaped like a CIRCLE.",
 "triangle": "A button shaped like a TRIANGLE."
 }
+control_room.usab = True
+
 
 hallway = Location('''this hallway continues ends in total darkness.''', ' a dark hallway.', 'This is the new description.', 'description1', 'description2', 'directions')
 hallway.directions = 'You can go: East'
@@ -131,6 +142,7 @@ dragon_keep = Location(''' large cavern. High above you can see an opening
 dragon_keep.description1 = ''
 dragon_keep.description2 = ''
 dragon_keep.directions = 'You can go: East'
+
 pool = Location(''' a wooden platform, a black icy cold pool stretches across the long chamber and 
 ends in an identical wooden platform on the other side.
 There is no way to cross it.''', 'a large black pool, icy cold.', 'This is the new description.', 'description1', 'description2', 'directions')
@@ -168,6 +180,8 @@ guard_room.usables = {
 "trolls": "Ugly, mean-looking and very dirty.",
 }
 
+guard_room.usab = True
+
 observatory= Location('''a round room with a domed ceiling.\n
 On the soft blue carpet stands a comfortable-looking armchair. A large chrystal chandelier
  is hanging from the ceiling.
@@ -179,8 +193,10 @@ observatory.description2 = ''
 
 observatory.usables = {
 "cloak": "A cloak decorated with silver closed eyes.",
-"telescope" : "A beautiful large telescope."
+"telescope" : "A beautiful large telescope.",
+"flowerpot" : "A large yellow flowerpot. Nothing is growing in it."
 }
+observatory.usab = True
 
 teleportation_chamber.south = wizards_room
 teleportation_chamber.north = hallway2
@@ -639,24 +655,28 @@ The air is very cold.'''
             
 
         elif user_command.startswith('examine'):
-            for item in current_location.interactible.keys():
-                if user_command.endswith(item):
-                    value= current_location.interactible.get(item)
-                    print(value)
-                    print('Is in the location.')
-                    break
-            else:
-                print('You can not examine that.\n')
+            if current_location.inter == True:
+                for item in current_location.interactible.keys():
+                    if user_command.endswith(item):
+                        value= current_location.interactible.get(item)
+                        print(value)
+                        print('Is in the location.')
+                        break
+                else:
+                    print('You can not examine that.\n')
 
-        elif user_command.startswith('examine'):
-            for item in current_location.usables.keys():
-                if user_command.endswith(item):
-                    value= current_location.usables.get(item)
-                    print(value)
-                    print('Is in the location.')
-                    break
+            elif current_location.usab == True:
+                for item in current_location.usables.keys():
+                    if user_command.endswith(item):
+                        value= current_location.usables.get(item)
+                        print(value)
+                        print('Is in the location.')
+                        break
+                else:
+                    print('You can not examine that.\n')
+
             else:
-                print('You can not examine that.\n')
+                    print('You can not examine that.\n')
 
         elif user_command.startswith('hold'):
             for item in inventory_dict.keys():
