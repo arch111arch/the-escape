@@ -69,16 +69,15 @@ library_gate.description2 = ''
 garden = Location(''' a lush garden spreads out like a jungle. Trees, bushes and 
 greenhouses frow everything from bananas to potatoes.
 Racks and barrels are filled with gardeningtools.
-On a sturdy wooden table are hundreds of seeds and a bowl full of beans.\n''', 'a lush garden.', 'This is the new description.', 'description1', 'description2', 'directions')
+On a worn sturdy wooden table are hundreds of seeds and bags of soil.\n''', 'a lush garden.', 'This is the new description.', 'description1', 'description2', 'directions')
 garden.directions = 'You can go: South'
 garden.new_description = ''
-garden.description1 = '''
-A glass bottle labelled "Plantfood" stands on the table..\n'''
-garden.description2 = ''
+garden.description1 = 'A glass bottle labelled "plantfood" stands on the table.'
+garden.description2 = 'An jar of beans is one the table.'
 
 garden.interactible = {
   "plantfood": "A bottle of super plantfood.",
-  "bean": "A green magic bean!" 
+  "beans": "A jar of green magic beans!" 
 }
 
 potions = Location('''five shelves are filled with jars, bottles and strange,
@@ -135,7 +134,7 @@ dragon_keep.directions = 'You can go: East'
 pool = Location(''' a wooden platform, a black icy cold pool stretches across the long chamber and 
 ends in an identical wooden platform on the other side.
 There is no way to cross it.''', 'a large black pool, icy cold.', 'This is the new description.', 'description1', 'description2', 'directions')
-pool.description1 = 'A cat purrs.'
+pool.description1 = ''
 pool.description2 = ''
 pool.directions = 'You can go: South'
 
@@ -164,6 +163,10 @@ They do not look friendly, or like they are having a good day.
 guard_room.directions = 'You can go: West'
 guard_room.description1 = ''
 guard_room.description2 = ''
+
+guard_room.usables = {
+"trolls": "Ugly, mean-looking and very dirty.",
+}
 
 observatory= Location('''a round room with a domed ceiling.\n
 On the soft blue carpet stands a comfortable-looking armchair. A large chrystal chandelier
@@ -217,6 +220,8 @@ library_gatewest = pool
 
 library.west = pool
 library_gate.west = pool
+
+garden.south = pool
 
 current_location = teleportation_chamber
 
@@ -408,6 +413,7 @@ def gameloop():
 a wooden platform, shiny frozen pool stretches across the long chamber and 
 ends in an identical wooden platform on the other side.\n
 The air is very cold.'''
+                        current_location.description1 = 'You can now enter the cave to the West,\n'+' or walk across the ice to a doorway in the North,\n'+ ' or enter a doorway to the East.'
                         pool_isfrozen = True
                         break
                 else:
@@ -555,6 +561,26 @@ The air is very cold.'''
                         current_location.description1 = ''
                         
                         break
+
+                elif user_command.endswith('plantfood') and current_location == garden:
+                        item = 'plantfood'
+                        value= current_location.interactible.get(item)
+                        inventory_dict[item] = value
+                        del current_location.interactible[item]
+                        print('You take the ' + item + '\n')
+                        current_location.description1= ''
+                        
+                        break
+                
+                elif user_command.endswith('beans') and current_location == garden:
+                        item = 'beans'
+                        value= current_location.interactible.get(item)
+                        inventory_dict[item] = value
+                        del current_location.interactible[item]
+                        print('You take the ' + item + '\n')
+                        current_location.description2= ''
+                        
+                        break
 #if item that user types exist in the list items, it is removed and added to the users inverntorylist.
             #The description of the location is changed to reflect that the object is no longer there.
                 elif user_command.endswith(item):
@@ -619,7 +645,10 @@ The air is very cold.'''
                     print(value)
                     print('Is in the location.')
                     break
+            else:
+                print('You can not examine that.\n')
 
+        elif user_command.startswith('examine'):
             for item in current_location.usables.keys():
                 if user_command.endswith(item):
                     value= current_location.usables.get(item)
