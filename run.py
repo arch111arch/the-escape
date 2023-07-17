@@ -230,11 +230,9 @@ dragon_keep.east = pool
 
 control_room.east = hallway2
 
-#library_gate.east = library
-library_gatewest = pool
-
 library.west = pool
 library_gate.west = pool
+#library_gate.east = library
 
 garden.south = pool
 
@@ -576,7 +574,13 @@ The air is very cold.'''
                                                             print('You press the ' + value + 'key' + '\n')
                                                             print('The square, triangle and circle flash green.')
                                                             print('A symbol of a gate appears just above the buttons. What did you just do?')
-                                                            #current_location.description2= ''
+                                                            library_gate.description = 'a large open black iron leads into the library.\n' + 'You can tell by the large sign above the gate that says:\n' + '"LIBRARY".'
+                                                            library_gate.east = library
+                                                            library_gate.directions = 'You can go West and East.'
+                                                            invisible = False
+                                                            print('You hurry away from the controlpanel and remove the cloak.')
+                                                            print('As you turn visible again, you see the troll did not even notice.')
+                                                            print("You can't breathe in this thing!")
                                                 else:
                                                     print('The buttons go red. That was not the right sequence.')
                                                     circle_ispressed = False
