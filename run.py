@@ -589,6 +589,21 @@ The air is very cold.'''
                 print('He is dressed in a red robe decorated with magic runes.')
                 print("Strange. He doesn't look dangerous, but he is.")
 
+        elif user_command.startswith('examine') and current_location == pool:
+            if user_command.endswith('water') and pool_isfrozen == False:
+                print('The water is icy cold and black.')
+                print('You will die in seconds if you jump in.')
+
+        elif user_command.startswith('examine') and current_location == pool:
+            if user_command.endswith('water') and pool_isfrozen == True:
+                print('The water completely frozen solid now')
+                print('That spell really works.')
+
+        elif user_command.startswith('examine') and current_location == pool:
+            if user_command.endswith('platform'):
+                print('Just wooden boards nailed together.')
+                print('Nothing special about it.')
+
         elif user_command.startswith('examine'):
             for item in current_location.interactible.keys():
                 if user_command.endswith(item):
