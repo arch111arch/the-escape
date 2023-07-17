@@ -316,6 +316,7 @@ def gameloop():
     invisible = False
     bean_isplanted = False
     plantfood_isused = False
+    climbed_beanstalk = False
 
     while user_command != 'quit':
        
@@ -450,17 +451,74 @@ The air is very cold.'''
                     print('Hmm. Maby use something else.')
 
         elif user_command.startswith('use') and current_location == observatory:
-            for item in inventory_dict.keys():
-                if user_command.endswith('beans') and bean_isplanted == False:
-                    print('You plant a handfull of beans in the flowerpot.')
-                    print('Now you just needs somehting to make it grow.')
-                    current_location.usables.update({"flowerpot": 'You have planted magic beans in here.'})
-                    bean_isplanted = True
-                    current_location.description2 = 'Directly below the chandelier is a yellow flowerpot.'+'\nThere are beans planted in there.'
+            if bean_isplanted == False:
+                for item in inventory_dict.keys():
+                    if user_command.endswith('beans'):
+                        print('You plant a handfull of beans in the flowerpot.')
+                        print('Now you just needs somehting to make it grow.')
+                        current_location.usables.update({"flowerpot": 'You have planted magic beans in here.'})
+                        bean_isplanted = True
+                        current_location.description2 = 'Directly below the chandelier is a yellow flowerpot.'+'\nThere are beans planted in there.'
+                        break
+                else:
+                    print('Hmm. Maby plant something?.')
+            
+            elif user_command.endswith('beans') and bean_isplanted == True:
+                print('You have allready planted beans here.')
+            
+            elif plantfood_isused == False:
+                if bean_isplanted == True:
+                    for item in inventory_dict.keys():
+                        if user_command.endswith('plantfood'):
+                            print('You pour the super plantfood into the pot.')
+                            print('Somethings happening. Leaves start to grow very fast.')
+                            print('A massive beanstalk shootes up into the ceiling, right past the chandelier.')
+                            current_location.usables.update({"flowerpot": 'What a magnificent beanstalk!'})
+                            plantfood_isused = True
+                            current_location.description2 = 'Directly below the chandelier is a yellow flowerpot.'+'\nA massive beanstalk reackes all the way to the ceiling.'
+                            break
+                else:
+                    print('You need to plant something first before you can use plantfood.')
+             
+            elif user_command.endswith('plantfood') and plantfood_isused == True:
+                print('The beanstalk is as big as it is going to get.')   
+
+            elif climbed_beanstalk == False:
+                if plantfood_isused == True:
+                    if user_command.endswith('beanstalk'):
+                        print('You climb up the beanstalk all the way to the top.')
+                        print('While you are up there, you grab the cloak from the chandelier.')
+                        print('You climb down again, putting the cloak into your inventory.')
+                        inventory_dict["cloak"] = "A cloak decorated with closed silver eyes."
+                        current_location.usables.pop("cloak")
+                        climbed_beanstalk = True
+                        current_location.description1 = 'Vines are covering the entire chandelier now.'
+
+            
+
+            else:
+                print('That was not right.')
+
+       
+
+        elif user_command.startswith('use') and current_location == observatory:
+            if plantfood_isused == True:
+                if user_command.endswith('beanstalk'):
+                    print('You climb up the beanstalk all the way to the top.')
+                    print('While you are up there, you grab the cloak from the chandelier.')
+                    print('You climb down again, putting the cloak into your inventory.')
+                    inventory_dict["cloak"] = "A cloak decorated with closed silver eyes."
+                    current_location.usables.pop("cloak")
+                    current_location.description1 = 'Vines are covering the entire chandelier now.'
+                    climbed_beanstalk = True
                     break
             
+            elif user_command.endswith('beans') and plantfood_isused == True:
+                print('Maby you can use something else than beans?')
+            elif user_command.endswith('beanstalk') and climbed_beanstalk == True:
+                print('No way you are climbing that thing again.')
             else:
-                print('You allready planted some beans.')
+                print('That did not work.')
         
         elif user_command.startswith('take') and current_location == wizards_room:
             if user_command.endswith('key'):
