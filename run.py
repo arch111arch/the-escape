@@ -308,10 +308,14 @@ Time to find a way out of here!
     print(colored('Available Directions : ' , 'yellow') + current_location.directions)
 
 def dragon_isfree():
-    print('Congratilations!\n')
-    print('You climb into the dragons scaly back and hold on tight.\n')
+    print('CONGRATULATIONS!\n')
+    print('You used your wits to find all the peices nedded to escape.')
+    print('You climb onto the dragons scaly back and hold on tight.\n')
+    print("Let's get out of here!"+ ' the dragon says, smiling.' )
     print('With a roar the dragon spreads its wings and leaps up into the air.\n')
     print('With three flaps of its mighty wings, you emerge into the cold air high above the prison.')
+    print('You have escaped and completed the game!')
+    print('')
     print('Game Over')
     exit()
 
@@ -563,8 +567,16 @@ The air is very cold.'''
 #use item from usable that can not be taken
 
         elif user_command.startswith('use') and current_location == control_room:
-            
-            if invisible == True:
+            if user_command.endswith('icespell'):
+                for item in inventory_dict.keys():
+                    if user_command.endswith('icespell'):
+                        print('Trolls are imune to icespells')
+                    
+                        break
+                else:
+                    print('That did not work.')
+
+            elif invisible == True:
                 if user_command.endswith('square'):    
                     for item in current_location.usables.keys():
                         if item == 'square':
@@ -619,14 +631,8 @@ The air is very cold.'''
                     print('The buttons go red. That was not the right sequence.') 
                 elif user_command.endswith('circle'):
                     print('The buttons go red. That was not the right sequence.') 
-                else:
-                    print('Try something else.')
-            elif user_command.endswith('cloak'):
-                for item in inventory_dict.keys():
-                    if user_command.endswith('cloak'):
-                        print('You wear the cloak and become invisible!')
-                        invisible = True
-                        break
+                
+            
                 else:
                     print('That did not work.')
             
@@ -650,7 +656,7 @@ The air is very cold.'''
             if climbed_beanstalk == False:
                 rint('The cloak is way too high. I need something to reach it.')
             else:
-                print('You allready have the cloak. Look, it is ')
+                print('You allready have the cloak. Look, it is in')
         
         elif user_command.startswith('take'):
             inventory_isempty = False
