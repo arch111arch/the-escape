@@ -73,7 +73,7 @@ garden.description2 = 'An jar of beans is one the table.'
 
 garden.interactible = {
   "plantfood": "A bottle of super plantfood.",
-  "beans": "A jar of green magic beans!" 
+  "beans": "A jar of green magic beans!",
 }
 garden.inter = True
 
@@ -179,8 +179,12 @@ You can see the servants-quarters, bathrooms, kitchens and storerooms ahead.\n
 But you can not find any reason for you to go in there.\n
 No way you are going to be a servant like this! ''', ' a hallway with checkered floor lit by four white orbs.', 'This is the new description.', 'description1', 'description2', 'directions')
 hallway3.directions = 'You can go: East'
-hallway3.description1 = ''
+hallway3.description1 = 'A small handwritten note is on the floor.'
 hallway3.description2 = ''
+hallway3.interactible = {
+  "note": "Remember: Square, triangle, circle.",
+}
+hallway3.inter = True
 
 guard_room = Location(''' a room filled with beds, chests, weapond and armor on racks, and a general mess\n
 of clothes and items over the floor and chairs.\n
@@ -292,7 +296,7 @@ I would advice you not to make the trolls angry.
 I would like to keep you around longer than the last one."\n
 "Get yourself settled and do not even think of escaping.\n
 There is no way out of here."\n
-He walks away to the east and leaves you in a state of shock and anger. \n
+He walks away to the south and leaves you in a state of shock and anger. \n
 \n
 No way you are staying here!\n
 Time to find a way out of here!
@@ -658,6 +662,15 @@ The air is very cold.'''
 
                 elif user_command.endswith('fetchspell') and current_location == library:
                         item = 'fetchspell'
+                        value= current_location.interactible.get(item)
+                        inventory_dict[item] = value
+                        del current_location.interactible[item]
+                        print('You take the ' + item + '\n')
+                        current_location.description1 = ''
+                        break
+
+                elif user_command.endswith('note') and current_location == hallway3:
+                        item = 'note'
                         value= current_location.interactible.get(item)
                         inventory_dict[item] = value
                         del current_location.interactible[item]
