@@ -479,7 +479,13 @@ The air is very cold.'''
                 print('Hmm. Maby use something else.')
 
         elif user_command.startswith('use') and current_location == observatory:
-            if bean_isplanted == False:
+            if user_command.endswith('telescope'):
+                print('Amazing! You see stars and planets in the dark space.')
+                print('A unicorn is running on a pink spacecloud.')
+                print('Wait what?')
+                print('As you step away from the telescope, you shake your head.')
+
+            elif bean_isplanted == False:
                 for item in inventory_dict.keys():
                     if user_command.endswith('beans'):
                         print('You plant a handfull of beans in the flowerpot.')
@@ -521,8 +527,6 @@ The air is very cold.'''
                         current_location.usables.pop("cloak")
                         climbed_beanstalk = True
                         current_location.description1 = 'Vines are covering the entire chandelier now.'
-
-            
 
             else:
                 print('That was not right.')
@@ -628,15 +632,15 @@ The air is very cold.'''
             
             elif user_command.endswith('square'):    
                 print('The troll sees you and pushes you back.')
-                print('GET AWAY FROM THEM CONTROLS, YA WIMP.')
+                print('GET AWAY FROM THEM CONTROLS, YA WIMP!!')
                 print('As long as he can see you, you can not get close.')
             elif user_command.endswith('triangle'):    
                 print('The troll sees you and pushes you back.')
-                print('GET AWAY FROM THEM CONTROLS, YA WIMP.')
+                print('GET AWAY FROM THEM CONTROLS, YA WIMP!!')
                 print('As long as he can see you, you can not get close.')
             elif user_command.endswith('circle'):    
                     print('The troll sees you and pushes you back.')
-                    print('GET AWAY FROM THEM CONTROLS, YA WIMP.')
+                    print('GET AWAY FROM THEM CONTROLS, YA WIMP!!')
                     print('As long as he can see you, you can not get close.')
 
             else:
