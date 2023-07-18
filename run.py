@@ -5,8 +5,10 @@ delay = 1
 logo = (colored('THE ESCAPE FROM THE WIZARDS LAIR', 'yellow', attrs=['bold']))
 user_command = ''
 
+
 class Location:
-    def __init__(self, description, short_description, new_description, description1, description2, directions):
+    def __init__(self, description, short_description,
+    new_description, description1, description2, directions):
         self.description = description
         self.short_description = short_description
         self.new_description = new_description
@@ -24,39 +26,38 @@ class Location:
         self.inter = False
         self.usab = False
 
+
 teleportation_chamber = Location(''' a vaulted room illuminated by strange glowing symbols cut in the stonewalls.\n
-In the center of the room is a pentagram painted on the floor surrounded\n
- by lit white candles.\n
+In the center of the room is a pentagram painted on the floor,\n
+surrounded by lit white candles.\n
 Strange artefacts and gadgets and magical instruments fill shelves that\n
 reach the ceiling.
-''', ' the teleportation-chamber.', '', 'description1', 'description2', 'directions')
+''', ' the teleportation-chamber.', '', '', '', '')
 teleportation_chamber.name = 'Teleportation Chamber'
 teleportation_chamber.short_description = 'You are in the teleportation-chamber.'
 teleportation_chamber.new_description = ''
 teleportation_chamber.description1 = ''
 teleportation_chamber.description2 = ''
 teleportation_chamber.directions = 'You can go: North, East, South, West'
-teleportation_chamber.usables = {  
-}
+teleportation_chamber.usables = {}
 
 library = Location(''' a rectangular room entirely furnished with boookshelves.\n
 These books are above your level and most languages you do not even\n
 recognise. This was locked for a reason though, so you search\n
 for something you can use.
-''', 'a impressive magic-library', 'This is the new description.', 'description1', 'description2', 'directions')
+''', 'a impressive magic-library', '', '', '', '')
 library.directions = 'You can go: West'
 library.new_description = ''
 library.description1 = '''
 You see a inkstained parchment with the words "Fetchspell" sticking out of a book.\n'''
 library.description2 = ''
-library.interactible = {
-    "fetchspell": "A spell to get things far away." 
-}
+library.interactible = {"fetchspell": "A spell to get things far away."}
 library.inter = True
 
 library_gate = Location(''' a large black iron gate blocks the entrance to the library.\n
  You can tell by the large sign above the gate that says: "LIBRARY".\n
- But why is it closed? There is no keyhole, so it must be opened somewhere else.\n''', 'a gate to the Library.', 'This is the new description.', 'description1', 'description2', 'directions')
+ But why is it closed?\n
+ There is no keyhole,it be opened somewhere else.\n''', 'a gate to the Library.', '', '', '', '')
 library_gate.directions = 'You can go: West'
 library_gate.new_description = ' a large iron gate. It is open.'
 library_gate.description1 = ''
@@ -65,7 +66,8 @@ library_gate.description2 = ''
 garden = Location(''' a lush garden spreads out like a jungle.\n
  You see trees, bushes and greenhouses frow everything from bananas to potatoes.\n
  Racks and barrels are filled with gardeningtool that does not interest you.\n
-On a worn sturdy wooden table are hundreds of seeds and bags of soil.\n''', 'a lush garden.', 'This is the new description.', 'description1', 'description2', 'directions')
+On a worn sturdy wooden table,\n
+are hundreds of seeds and bags of soil.\n''', 'a lush garden.', '', '', '', '')
 garden.directions = 'You can go: South'
 garden.new_description = ''
 garden.description1 = 'A glass bottle labelled "plantfood" stands on the table.'
@@ -80,7 +82,7 @@ garden.inter = True
 potions = Location(''' five shelves are filled with jars, bottles and strange, instruments\n
 and burning candles.\n
 A black table is to your left.
-''', 'a dimly lit potions chamber.', 'This is the new description.', 'description1', 'description2', 'directions')
+''', 'a dimly lit potions chamber.', '', '', '', '')
 potions.directions = 'You can go: West'
 potions.new_description = '''
  five shelves are filled with jars, bottles and strange, instruments\n
@@ -104,7 +106,7 @@ You have seen one like this before, you need to enter a code.
 \n
 A big bored troll in a black uniform sits typing on a keyboard.\n
 He did not notice you.
-''', ' a control-room filled with machines and neon lights.', 'This is the new description.', 'description1', 'description2', 'directions')
+''', ' a control-room filled with machines and neon lights.', '', '', '', '')
 control_room.directions = 'You can go: East'
 control_room.description1 = ''
 control_room.description2 = ''
@@ -115,17 +117,12 @@ control_room.usables = {
 }
 control_room.usab = True
 
-hallway = Location(''' a hallway continues ends in total darkness.''', ' a dark hallway.', 'This is the new description.', 'description1', 'description2', 'directions')
-hallway.directions = 'You can go: East'
-hallway.description1 = ''
-hallway.description2 = ''
-
 wizards_room = Location(''' the old wizard is snoozing in a arge armchair in front of a large fireplace.\n
  In his lap you see a key.\n
  The room is cozy with a big bed, plenty of shelves with books and trinkets, drawers,\n
  A table and a chair and the large red chair he is sitting in.
- ''', ' the wizards home. Quite cozy.', '''the old wizard is snoozing in a arge armchair 
-in front of a large fireplace. Cozy.''', 'description1', 'description2', 'directions')
+ ''', ' the wizards home. Quite cozy.', '''the old wizard is snoozing in a arge armchair
+in front of a large fireplace. Cozy.''', '', '', '')
 wizards_room.directions = 'You can go: North'
 wizards_room.description1 = ''
 wizards_room.description2 = ''
@@ -143,7 +140,7 @@ The dragon looks at you with sad eyes and speaks.\n
 I want to fly home to my mountain and live in peace.\n
 If you unlock my chains you can leave this place in my back as I fly away!\n
 Find a key that looks like a dragon and return here."
-  ''', ' a large sad, red dragon in a smoky cave.', 'This is the new description.', 'description1', 'description2', 'directions')
+  ''', ' a large sad, red dragon in a smoky cave.', '', '', '', '')
 
 dragon_keep.description1 = ''
 dragon_keep.description2 = ''
@@ -154,12 +151,13 @@ and ends in an identical wooden platform on the other side.\n
 There is no way to cross the pool.\n
 You see a caveopening to the west. To the east you see a doorway.\n
 You just can not get to them.
-''', 'a large black pool, icy cold.', 'This is the new description.', 'description1', 'description2', 'directions')
+''', 'a large black pool, icy cold.', '', '', '', '')
 pool.description1 = ''
 pool.description2 = ''
 pool.directions = 'You can go: South'
 
-hallway1 = Location(''' a hallway with a flor of blue marble. A glowing yellow orb hovers in the ceiling.''', ' a hallway with a blue marble floor.', 'This is the new description.', 'description1', 'description2', 'directions')
+hallway1 = Location(''' a hallway with a flor of blue marble.\n
+A glowing yellow orb hovers in the ceiling.''', ' a hallway with a blue marble floor.', '', '', '', '')
 hallway1.directions = 'You can go: East, West, South'
 hallway1.description1 = ''
 hallway1.description2 = ''
@@ -167,17 +165,19 @@ hallway1.description2 = ''
 hallway2 = Location(''' a hallway entirely painted red. four wallmounted torches illuminates the room.\n
 A cool breeze from the north makes the torches flames dance.
 A doorway leads to the west. A doorway leeds to the east.\n
-A dark large opening continues to the north.''', ' a hallway painted red. Torches flicker in a breeze', 'This is the new description.', 'description1', 'description2', 'directions')
+A dark large opening continues to the north.\n
+''', ' a hallway painted red. Torches flicker in a breeze', '', '', '', '')
 hallway2.directions = 'You can go: East, West, South, North'
 hallway2.description1 = ''
 hallway2.description2 = ''
 
-hallway3 = Location(''' a black and white hallway with checkered floor is illusmitaed by four white glowing\n
-orbs, slowly pulsating.\n
+hallway3 = Location(''' a black and white hallway with checkered floor.\n
+Is illusmitaed by four white glowing orbs, slowly pulsating.\n
 You stop and wonder if there are small pixies in there.\n
 You can see the servants-quarters, bathrooms, kitchens and storerooms ahead.\n
 But you can not find any reason for you to go in there.\n
-No way you are going to be a servant like this! ''', ' a hallway with checkered floor lit by four white orbs.', 'This is the new description.', 'description1', 'description2', 'directions')
+No way you are going to be a servant like this!\n
+''', ' a hallway with checkered floor lit by four white orbs.', '', '', '', '')
 hallway3.directions = 'You can go: East'
 hallway3.description1 = 'A small handwritten note is on the floor.'
 hallway3.description2 = ''
@@ -192,22 +192,22 @@ Three ugly trolls look up as you enter.\n
 They do not look friendly, or like they are having a good day.\n
 There is nothing for you to do in here.\n
 Better hurry and find a way to escape before they come after you.
-''', ' a messy guardroom with three angry trolls in it.', 'This is the new description.', 'description1', 'description2', 'directions')
+''', ' a messy guardroom with three angry trolls in it.', '', '', '', '')
 guard_room.directions = 'You can go: West'
 guard_room.description1 = ''
 guard_room.description2 = ''
 
-guard_room.usables = {
-"trolls": "Ugly, mean-looking and very dirty.",
-}
+guard_room.usables = {"trolls": "Ugly, mean-looking and very dirty.",}
 guard_room.usab = True
 
-observatory= Location(''' a round room with a domed ceiling.\n
+observatory = Location(''' a round room with a domed ceiling.\n
 On the soft blue carpet stands a comfortable-looking armchair.\n
 A large chrystal chandelier is hanging from the ceiling.\n
-The main focus of the room however is the large gold telescope pointing up at the dome.''', ' a round room with a telescope in the center. An observatory.', 'This is the new description.', 'description1', 'description2', 'directions')
+The main focus of the room however is the large gold telescope.\n
+It is pointing up at the dome.''', ' a round room with a telescope in the center.', '', '', '', '')
 observatory.directions = 'You can go: North'
-observatory.description1 = '\nSomething is hanging up in the chandelier. A cloak!\n'+'Is that ... an invisibility cloak? They are super rare.\n'
+observatory.description1 = '''\nSomething is hanging up in the chandelier. A cloak!\n
+Is that ... an invisibility cloak? They are super rare.'''
 observatory.description2 = 'Directly below the chandelier is a yellow flowerpot.'
 
 observatory.usables = {
@@ -318,20 +318,6 @@ def dragon_isfree():
     print('')
     print('Game Over')
     exit()
-
-def examine():
-
-    if user_command.startswith('xa'):
-        #if item that user types exist in the list items, it is removed and added to the users inverntorylist.
-        #The description of the location is changed to reflect that the object is no longer there.
-        for item in current_location.interactible.keys():
-            if user_command.endswith(item):
-                value= current_location.interactible.get(item)
-                print(value)
-                print('In the location: ')
-                break
-        else:
-            print('You can not examine that.\n')
 
 def gameloop():
     current_location = teleportation_chamber
