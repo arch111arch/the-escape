@@ -351,7 +351,7 @@ def gameloop():
                 if user_command is not None:
                     if current_location.directions is not None:
                         current_location = current_location.north
-                        if current_location.visited == False: 
+                        if current_location.visited == False:
                             print('You see ' + current_location.description + current_location.description1 + current_location.description2 + '\n')
                             print(colored('Available Directions : ' , 'yellow') + current_location.directions)
                             current_location.visited = True
@@ -370,7 +370,7 @@ def gameloop():
                 if user_command is not None:
                     if current_location.directions is not None:
                         current_location = current_location.south
-                        if current_location.visited == False: 
+                        if current_location.visited == False:
                             print('You see ' + current_location.description + current_location.description1 + current_location.description2 + '\n')
                             print(colored('Available Directions : ' , 'yellow') + current_location.directions)
                             current_location.visited = True
@@ -505,7 +505,7 @@ The air is very cold.'''
                     print('You need to plant something first before you can use plantfood.')
              
             elif user_command.endswith('plantfood') and plantfood_isused == True:
-                print('The beanstalk is as big as it is going to get.')   
+                print('The beanstalk is as big as it is going to get.')
 
             elif climbed_beanstalk == False:
                 if plantfood_isused == True:
@@ -563,7 +563,7 @@ The air is very cold.'''
                     print('That did not work.')
 
             elif invisible == True:
-                if user_command.endswith('square'):    
+                if user_command.endswith('square'):
                     for item in current_location.usables.keys():
                         if item == 'square':
                             value= current_location.usables.get(item)
@@ -573,7 +573,7 @@ The air is very cold.'''
                             user_command = x.lower()
                             
                             if user_command.startswith('use') and current_location == control_room:
-                                if user_command.endswith('triangle'):    
+                                if user_command.endswith('triangle'):
                                     for item in current_location.usables.keys():
                                         if item == 'triangle':
                                             value= current_location.usables.get(item)
@@ -583,7 +583,7 @@ The air is very cold.'''
                                             user_command = x.lower()
                             
                                             if user_command.startswith('use') and current_location == control_room:
-                                                if user_command.endswith('circle'):    
+                                                if user_command.endswith('circle'):
                                                     for item in current_location.usables.keys():
                                                         if item == 'circle':
                                                             value= current_location.usables.get(item)
@@ -614,23 +614,23 @@ The air is very cold.'''
                                     break
 
                 elif user_command.endswith('triangle'):
-                    print('The buttons go red. That was not the right sequence.') 
+                    print('The buttons go red. That was not the right sequence.')
                 elif user_command.endswith('circle'):
-                    print('The buttons go red. That was not the right sequence.') 
+                    print('The buttons go red. That was not the right sequence.')
                 
             
                 else:
                     print('That did not work.')
             
-            elif user_command.endswith('square'):    
+            elif user_command.endswith('square'):
                 print('The troll sees you and pushes you back.')
                 print('GET AWAY FROM THEM CONTROLS, YA WIMP!!')
                 print('As long as he can see you, you can not get close.')
-            elif user_command.endswith('triangle'):    
+            elif user_command.endswith('triangle'):
                 print('The troll sees you and pushes you back.')
                 print('GET AWAY FROM THEM CONTROLS, YA WIMP!!')
                 print('As long as he can see you, you can not get close.')
-            elif user_command.endswith('circle'):    
+            elif user_command.endswith('circle'):
                     print('The troll sees you and pushes you back.')
                     print('GET AWAY FROM THEM CONTROLS, YA WIMP!!')
                     print('As long as he can see you, you can not get close.')
@@ -737,7 +737,7 @@ The air is very cold.'''
                 print('You will die in seconds if you jump in.')
             elif user_command.endswith('water') and pool_isfrozen == True:
                 print('The water completely frozen solid now')
-                print('That spell really works.')    
+                print('That spell really works.')
             else:
                 for item in current_location.interactible.keys():
                     if user_command.endswith(item):
@@ -798,12 +798,11 @@ The air is very cold.'''
                         
                         print('You see' + current_location.description + ' ' + current_location.description1 + ' ' + current_location.description2)
                         print('\n')
-                        print(colored('Available Directions : ' , 'yellow') + current_location.directions + '\n')  
+                        print(colored('Available Directions : ' , 'yellow') + current_location.directions + '\n')
                 
             except AttributeError:
                 print(colored('Wrong direction. Choose again.', 'red'))
                 pass
-            
         elif user_command == 'help':
             help()
 
@@ -818,8 +817,7 @@ The air is very cold.'''
 print('Welcome to the text-adventure ' + logo)
 print('')
 user_name = input('What is your name, adventurer? > ')
-print('') 
-print('Good to meet you ' + (colored(user_name, 'green')) 
-+ ', now let us begin.\n')
+print('')
+print('Good to meet you ' + (colored(user_name, 'green') + ', now let us begin.\n'))
 intro()
 gameloop()
