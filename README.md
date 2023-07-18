@@ -1,8 +1,14 @@
 # The Escape
 
 The Escape is a textbased adventure like the games of old where the user types commands to interact with the program. The object is to escape from the wizards lair.
+The game is build so that the goal can only be reached by doing tasks in order. This involve picking up items and using them.
+
+By the user interacting with the game, the code will change to allow for more user-interactions. An example of this is to open a new direction that was previously closed or hidden or when the player gains a new object.
 
 ## Features 
+
+## Live Game
+https://escapefromthewizardslair-68d0328ea618.herokuapp.com/
 
 In this section, you should go over the different parts of your project, and describe each in a sentence or so. You will need to explain what value each of the features provides for the user, focusing on who this website is for, what it is that they want to achieve and how your project is the best way to help them achieve these things.
 
@@ -29,6 +35,7 @@ In this section, you should go over the different parts of your project, and des
 ### Features Left to Implement
 
 - Enemy-system, health and a combat-system.
+- Timed events.
 
 ## Testing 
 
@@ -47,7 +54,10 @@ This section should describe the process you went through to deploy the project 
   - In the GitHub repository, navigate to the Settings tab 
   - From the source section drop-down menu, select the Master Branch
   - Once the master branch has been selected, the page will be automatically refreshed with a detailed ribbon display to indicate the successful deployment. 
-
+- The site was deployed through Heroku as follows.
+  - In the Settings, create a new project.
+  - In Deply connect to Github.
+  - Deploy branch 
 
 ## Credits 
 
@@ -55,7 +65,7 @@ Several problems, especially with error-handling and how to deal with exceptions
 - https://www.positioniseverything.net/nonetype-object-has-no-attribute/
 - https://www.w3schools.com/python/python_try_except.asp
 - And videos on youtube by Neal Holtshultse dealing with classes.
-- 
+
 ### Content 
 
 - To color text teh library termcolor was imported
