@@ -24,56 +24,47 @@ class Location:
         self.inter = False
         self.usab = False
 
-teleportation_chamber = Location('''
-A vaulted room illuminted by strange glowing symbols
- in the stonewalls\n.
-In the center of the room is a pentagram painted on
- the floor surrounded by lit white candles.\n
-In a black shelf you see a glass vial with a label of a skull.
-In a corner stands a red round table.\n
-''', '''You are in the 
-teleportation-chamber.''', '', 'description1', 'description2', 'directions')
+teleportation_chamber = Location(''' a vaulted room illuminated by strange glowing symbols cut in the stonewalls.\n
+In the center of the room is a pentagram painted on the floor surrounded\n
+ by lit white candles.\n
+Strange artefacts and gadgets and magical instruments fill shelves that\n
+reach the ceiling.
+''', ' the teleportation-chamber.', '', 'description1', 'description2', 'directions')
 teleportation_chamber.name = 'Teleportation Chamber'
 teleportation_chamber.short_description = 'You are in the teleportation-chamber.'
-teleportation_chamber.new_description = '''
-a vaulted room illuminted by strange glowing symbols
- in the stonewalls\n.
-In the center of the room is a pentagram painted
- on the floor surrounded by lit white candles.\n
-In a corner stands a red round table.'''
+teleportation_chamber.new_description = ''
 teleportation_chamber.description1 = ''
 teleportation_chamber.description2 = ''
 teleportation_chamber.directions = 'You can go: North, East, South, West'
 teleportation_chamber.usables = {  
 }
 
-
-library = Location('''five shelves are filled with jars, bottles and strange,
-instruments and burning candels.\n''', 'a dimly lit potions chamber.', 'This is the new description.', 'description1', 'description2', 'directions')
+library = Location(''' a rectangular room entirely furnished with boookshelves.\n
+These books are above your level and most languages you do not even\n
+recognise. This was locked for a reason though, so you search\n
+for something you can use.
+''', 'a impressive magic-library', 'This is the new description.', 'description1', 'description2', 'directions')
 library.directions = 'You can go: West'
-library.new_description = '''five shelves are filled with jars, bottles and strange,
-instruments and burning candels.'''
+library.new_description = ''
 library.description1 = '''
 You see a inkstained parchment with the words "Fetchspell" sticking out of a book.\n'''
 library.description2 = ''
 library.interactible = {
     "fetchspell": "A spell to get things far away." 
 }
-
 library.inter = True
 
 library_gate = Location(''' a large black iron gate blocks the entrance to the library.\n
-You can tell by the large sign above the gate that says:\n
-"LIBRARY". But why is it closed?\n
-There is no keyhole, so it must be opened somewhere else.\n''', 'a gate to the Library.', 'This is the new description.', 'description1', 'description2', 'directions')
+ You can tell by the large sign above the gate that says: "LIBRARY".\n
+ But why is it closed? There is no keyhole, so it must be opened somewhere else.\n''', 'a gate to the Library.', 'This is the new description.', 'description1', 'description2', 'directions')
 library_gate.directions = 'You can go: West'
 library_gate.new_description = ' a large iron gate. It is open.'
 library_gate.description1 = ''
 library_gate.description2 = ''
 
-garden = Location(''' a lush garden spreads out like a jungle. Trees, bushes and 
-greenhouses frow everything from bananas to potatoes.
-Racks and barrels are filled with gardeningtools.
+garden = Location(''' a lush garden spreads out like a jungle.\n
+ You see trees, bushes and greenhouses frow everything from bananas to potatoes.\n
+ Racks and barrels are filled with gardeningtool that does not interest you.\n
 On a worn sturdy wooden table are hundreds of seeds and bags of soil.\n''', 'a lush garden.', 'This is the new description.', 'description1', 'description2', 'directions')
 garden.directions = 'You can go: South'
 garden.new_description = ''
@@ -84,29 +75,36 @@ garden.interactible = {
   "plantfood": "A bottle of super plantfood.",
   "beans": "A jar of green magic beans!" 
 }
-
 garden.inter = True
 
-potions = Location('''five shelves are filled with jars, bottles and strange,
-instruments and burning candels.\n''', 'a dimly lit potions chamber.', 'This is the new description.', 'description1', 'description2', 'directions')
+potions = Location(''' five shelves are filled with jars, bottles and strange, instruments\n
+and burning candles.\n
+A black table is to your left.
+''', 'a dimly lit potions chamber.', 'This is the new description.', 'description1', 'description2', 'directions')
 potions.directions = 'You can go: West'
-potions.new_description = '''five shelves are filled with jars, bottles and strange,
-instruments and burning candels.\n
-On a black table stands lonely.'''
+potions.new_description = '''
+ five shelves are filled with jars, bottles and strange, instruments\n
+and burning candles.\n
+A black table is to your left.
+'''
 potions.description1 = ''
 potions.description2 = '''A parchment with the words "icespell" lies on the table.'''
 
 potions.interactible = {
   "icespell": "A spell with that turns things very cold.",
 }
-
 potions.inter = True
 
-control_room = Location('''this dark control-room pulsates with neon-lights of red, green and blue.
-It is allmost entirely filled with screens, buttons and levers. 
-In the center is a large controlpanel.\n
-Under a copper-plaque that reads "Library" you see three buttons.
-A square-button, a circle-button and a triangle-button.''', ' a control-room filled with machines and neon light.', 'This is the new description.', 'description1', 'description2', 'directions')
+control_room = Location(''' a dark control-room pulsates with neon-lights of red, green and blue.\n
+It is allmost entirely filled with screens, buttons and levers.\n
+In the center is a large controlpanel with a copper sign that reads:\n
+"Library". Under it you see three buttons that shine red.\n
+One is a square, one is a circle and one is a triangle.\n
+You have seen one like this before, you need to enter a code.
+\n
+A big bored troll in a black uniform sits typing on a keyboard.\n
+He did not notice you.
+''', ' a control-room filled with machines and neon lights.', 'This is the new description.', 'description1', 'description2', 'directions')
 control_room.directions = 'You can go: East'
 control_room.description1 = ''
 control_room.description2 = ''
@@ -117,60 +115,79 @@ control_room.usables = {
 }
 control_room.usab = True
 
-
-hallway = Location('''this hallway continues ends in total darkness.''', ' a dark hallway.', 'This is the new description.', 'description1', 'description2', 'directions')
+hallway = Location(''' a hallway continues ends in total darkness.''', ' a dark hallway.', 'This is the new description.', 'description1', 'description2', 'directions')
 hallway.directions = 'You can go: East'
 hallway.description1 = ''
 hallway.description2 = ''
 
-wizards_room = Location('''the old wizard is snoozing in a arge armchair in front of a large fireplace.
- In his lap you see a key.''', ' the wizards home. Quite cozy.', '''the old wizard is snoozing in a arge armchair 
+wizards_room = Location(''' the old wizard is snoozing in a arge armchair in front of a large fireplace.\n
+ In his lap you see a key.\n
+ The room is cozy with a big bed, plenty of shelves with books and trinkets, drawers,\n
+ A table and a chair and the large red chair he is sitting in.
+ ''', ' the wizards home. Quite cozy.', '''the old wizard is snoozing in a arge armchair 
 in front of a large fireplace. Cozy.''', 'description1', 'description2', 'directions')
 wizards_room.directions = 'You can go: North'
 wizards_room.description1 = ''
 wizards_room.description2 = ''
-teleportation_chamber.new_description = '''the old wizard is snoozing in a arge armchair 
-in front of a large fireplace. Cozy.'''
+teleportation_chamber.new_description = ''' the old wizard is snoozing in a arge armchair in front of a large fireplace.\n
+ The room is cozy with a big bed, plenty of shelves with books and trinkets, drawers,\n
+ A table and a chair and the large red chair he is sitting in.
+ '''
 
-dragon_keep = Location(''' large cavern. High above you can see an opening
- beaming with daylight. A large red dragon is lying in the center of the cavern.
-  It is held down with a massive locked chain.
-  It looks at you with sad eyes and speaks.\n
-  Please help me! If you unlock my chains you can leave this place in my back as I fly away!
-  ''', ' a large sad, red dragon.', 'This is the new description.', 'description1', 'description2', 'directions')
+dragon_keep = Location(''' a large rocky smoky cave. High above you can see an opening\n
+beaming with daylight.\n
+A large red dragon is lying in the center of the cave.
+It is held down with a massive chain, connected to a big lock.\n
+The dragon looks at you with sad eyes and speaks.\n
+"Please help me! The wizard imprisoned me here for years now.\n
+I want to fly home to my mountain and live in peace.\n
+If you unlock my chains you can leave this place in my back as I fly away!\n
+Find a key that looks like a dragon and return here."
+  ''', ' a large sad, red dragon in a smoky cave.', 'This is the new description.', 'description1', 'description2', 'directions')
 
 dragon_keep.description1 = ''
 dragon_keep.description2 = ''
 dragon_keep.directions = 'You can go: East'
 
-pool = Location(''' a wooden platform, a black icy cold pool stretches across the long chamber and 
-ends in an identical wooden platform on the other side.
-There is no way to cross it.''', 'a large black pool, icy cold.', 'This is the new description.', 'description1', 'description2', 'directions')
+pool = Location(''' a wooden platform, a black icy cold pool stretches across the long chamber\n
+and ends in an identical wooden platform on the other side.\n
+There is no way to cross the pool.\n
+You see a caveopening to the west. To the east you see a doorway.\n
+You just can not get to them.
+''', 'a large black pool, icy cold.', 'This is the new description.', 'description1', 'description2', 'directions')
 pool.description1 = ''
 pool.description2 = ''
 pool.directions = 'You can go: South'
 
-hallway1 = Location('''a hallway with a flor of blue marble. A glowing yellow orb hovers in the ceiling.''', ' a hallway with a blue marble floor.', 'This is the new description.', 'description1', 'description2', 'directions')
+hallway1 = Location(''' a hallway with a flor of blue marble. A glowing yellow orb hovers in the ceiling.''', ' a hallway with a blue marble floor.', 'This is the new description.', 'description1', 'description2', 'directions')
 hallway1.directions = 'You can go: East, West, South'
 hallway1.description1 = ''
 hallway1.description2 = ''
 
-hallway2 = Location('''a hallway entirely painted red. four wallmounted torches illuminates the room.
-A cool breeze from the north makes the torches flames dance.''', ' a hallway painted red. Torches flicker in a breeze', 'This is the new description.', 'description1', 'description2', 'directions')
+hallway2 = Location(''' a hallway entirely painted red. four wallmounted torches illuminates the room.\n
+A cool breeze from the north makes the torches flames dance.
+A doorway leads to the west. A doorway leeds to the east.\n
+A dark large opening continues to the north.''', ' a hallway painted red. Torches flicker in a breeze', 'This is the new description.', 'description1', 'description2', 'directions')
 hallway2.directions = 'You can go: East, West, South, North'
 hallway2.description1 = ''
 hallway2.description2 = ''
 
-hallway3 = Location('''a black and white hallway with checkered floor is illusmitaed by four white glowing 
-orbs, slowly pulsating. You stop and wonder if there are small pixies in there.''', ' a hallway with checkered floor lit by four white orbs.', 'This is the new description.', 'description1', 'description2', 'directions')
+hallway3 = Location(''' a black and white hallway with checkered floor is illusmitaed by four white glowing\n
+orbs, slowly pulsating.\n
+You stop and wonder if there are small pixies in there.\n
+You can see the servants-quarters, bathrooms, kitchens and storerooms ahead.\n
+But you can not find any reason for you to go in there.\n
+No way you are going to be a servant like this! ''', ' a hallway with checkered floor lit by four white orbs.', 'This is the new description.', 'description1', 'description2', 'directions')
 hallway3.directions = 'You can go: East'
 hallway3.description1 = ''
 hallway3.description2 = ''
 
-guard_room = Location('''a room filled with beds, chests, weapond and armor on racks, 
-and a general mess of clothes and items over the floor and chairs.\n
+guard_room = Location(''' a room filled with beds, chests, weapond and armor on racks, and a general mess\n
+of clothes and items over the floor and chairs.\n
 Three ugly trolls look up as you enter.\n
-They do not look friendly, or like they are having a good day.
+They do not look friendly, or like they are having a good day.\n
+There is nothing for you to do in here.\n
+Better hurry and find a way to escape before they come after you.
 ''', ' a messy guardroom with three angry trolls in it.', 'This is the new description.', 'description1', 'description2', 'directions')
 guard_room.directions = 'You can go: West'
 guard_room.description1 = ''
@@ -179,12 +196,11 @@ guard_room.description2 = ''
 guard_room.usables = {
 "trolls": "Ugly, mean-looking and very dirty.",
 }
-
 guard_room.usab = True
 
-observatory= Location('''a round room with a domed ceiling.\n
-On the soft blue carpet stands a comfortable-looking armchair. A large chrystal chandelier
- is hanging from the ceiling.
+observatory= Location(''' a round room with a domed ceiling.\n
+On the soft blue carpet stands a comfortable-looking armchair.\n
+A large chrystal chandelier is hanging from the ceiling.\n
 The main focus of the room however is the large gold telescope pointing up at the dome.''', ' a round room with a telescope in the center. An observatory.', 'This is the new description.', 'description1', 'description2', 'directions')
 observatory.directions = 'You can go: North'
 observatory.description1 = '\nSomething is hanging up in the chandelier. A cloak!\n'+'Is that ... an invisibility cloak? They are super rare.\n'
@@ -263,18 +279,27 @@ def help():
 def intro():
     print(colored('''
 Everything is black.\n
-As your head clears you are greeted by an old wizard in red robes. 
+Where are you? You were just running errands for your teacher in the\n
+school for magic where you are a student.\n
+As your head clears you are greeted by an old wizard in red robes.\n
+Immediately you recignise that face. This is the wanted wizard\n
+Araval the Red. What is going in here?\n
+\n
 You realize you stand in a pentagram. You have been teleported here!\n
-"Greetings. I am in need of a new assistent. My old one is ... no longer
- available."\n
-"Get yourself settled and do not even think of escaping.
+"Greetings. I am in need of a new assistent." he tells you.\n
+"My old one is ... no longer available. Nasty business.
+I would advice you not to make the trolls angry.
+I would like to keep you around longer than the last one."\n
+"Get yourself settled and do not even think of escaping.\n
 There is no way out of here."\n
-He walks away and leaves you in a state of shock and enger. \n
-No way you are staying here! Time to find a way out.
+He walks away to the east and leaves you in a state of shock and anger. \n
+\n
+No way you are staying here!\n
+Time to find a way out of here!
     ''', 'cyan'))
     input('press ENTER to continue.\n')
-    print('You are in the ' + current_location.name + '. You see ' + current_location.description + current_location.description1 + current_location.description2)
-    print('\n')
+    print('You are in the ' + current_location.name + '.\n')
+    print('You see ' + teleportation_chamber.description)
     current_location.visited = True
     print(colored('Available Directions : ' , 'yellow') + current_location.directions)
 
@@ -535,43 +560,28 @@ The air is very cold.'''
                 if user_command.endswith('square'):    
                     for item in current_location.usables.keys():
                         if item == 'square':
-                            #if user_command.endswith('square'):
-                            # item = 'square'
                             value= current_location.usables.get(item)
                             square_ispressed = True
-                            #if square_ispressed == False:
                             print('You press the ' + value + 'key' + '\n')
                             x = input(colored('The square turns green. Next button please. > ', 'green'))
                             user_command = x.lower()
-                            #input('Enter next symbol.')
-                            #current_location.description2= ''
                             
                             if user_command.startswith('use') and current_location == control_room:
-                                #if invisible == True:
                                 if user_command.endswith('triangle'):    
                                     for item in current_location.usables.keys():
                                         if item == 'triangle':
-                                            #if user_command.endswith('square'):
-                                            # item = 'square'
                                             value= current_location.usables.get(item)
                                             triangle_ispressed = True
-                                            #if square_ispressed == False:
                                             print('You press the ' + value + 'key' + '\n')
                                             x = input(colored('The triangle turns green. Next button please. > ', 'green'))
                                             user_command = x.lower()
-                                            #input('Enter next symbol.')
-                                            #current_location.description2= ''
                             
                                             if user_command.startswith('use') and current_location == control_room:
-                                                #if invisible == True:
                                                 if user_command.endswith('circle'):    
                                                     for item in current_location.usables.keys():
                                                         if item == 'circle':
-                                                            #if user_command.endswith('square'):
-                                                            # item = 'square'
                                                             value= current_location.usables.get(item)
                                                             circle_ispressed = True
-                                                            #if square_ispressed == False:
                                                             print('You press the ' + value + 'key' + '\n')
                                                             print('The square, triangle and circle flash green.')
                                                             print('A symbol of a gate appears just above the buttons. What did you just do?')
@@ -611,7 +621,6 @@ The air is very cold.'''
                         break
                 else:
                     print('That did not work.')
-
             
             elif user_command.endswith('square'):    
                 print('The troll sees you and pushes you back.')
@@ -645,7 +654,6 @@ The air is very cold.'''
                         del current_location.interactible[item]
                         print('You take the ' + item + '\n')
                         current_location.description2= ''
-                        
                         break
 
                 elif user_command.endswith('fetchspell') and current_location == library:
@@ -655,7 +663,6 @@ The air is very cold.'''
                         del current_location.interactible[item]
                         print('You take the ' + item + '\n')
                         current_location.description1 = ''
-                        
                         break
 
                 elif user_command.endswith('plantfood') and current_location == garden:
@@ -665,7 +672,6 @@ The air is very cold.'''
                         del current_location.interactible[item]
                         print('You take the ' + item + '\n')
                         current_location.description1= ''
-                        
                         break
                 
                 elif user_command.endswith('beans') and current_location == garden:
@@ -675,7 +681,6 @@ The air is very cold.'''
                         del current_location.interactible[item]
                         print('You take the ' + item + '\n')
                         current_location.description2= ''
-                        
                         break
                         
 #if item that user types exist in the list items, it is removed and added to the users inverntorylist.
